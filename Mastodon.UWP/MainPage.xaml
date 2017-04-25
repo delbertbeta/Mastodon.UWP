@@ -6,8 +6,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-    </Grid>
+    
+    <RelativePanel>
+        <RelativePanel.Background>
+            <ImageBrush Stretch="UniformToFill" ImageSource="ms-appx:///Assets/Images/Background.jpg"/>
+        </RelativePanel.Background>
+        <StackPanel RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
+            <AutoSuggestBox Name="SiteUrlInputBox" Width="300" HorizontalAlignment="Center" PlaceholderText="Url of a mastondon. e.x. mastodon.cloud" Background="White"/>
+            <Button Name="ConfirmButton" Content="Confirm" HorizontalAlignment="Center" Margin="0 20 0 0" Width="300" Background="#FF2B90D9" Foreground="White" />
+        </StackPanel>
+    </RelativePanel>
 </Page>
