@@ -22,5 +22,10 @@ namespace Mastodon.API.Apis
                 return await HttpManager.PostAsync<OauthModel>($"{domain}{Url.AppsRegister}", null, formData);
             }
         }
+
+        public static Task Register(string url, object appSetting)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -95,10 +95,14 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\Settings.cs" />
+    <Compile Include="Model\Setting.cs" />
     <Compile Include="Model\Settings\Account.cs" />
-    <Compile Include="View\Instance.xaml.cs">
-      <DependentUpon>Instance.xaml</DependentUpon>
+    <Compile Include="Model\Settings\ApplicationInfo.cs" />
+    <Compile Include="Pages\InstancePage.xaml.cs">
+      <DependentUpon>InstancePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\TimeLinePage.xaml.cs">
+      <DependentUpon>TimeLinePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -124,9 +128,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="View\Instance.xaml">
+    <Page Include="Pages\InstancePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\TimeLinePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -137,7 +145,16 @@
       <Version>10.0.3</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Services\" />
+    <Folder Include="View\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mastodon.API\Mastodon.API.csproj">
+      <Project>{13c7afa5-8eaf-40f6-a705-ec62cb133c62}</Project>
+      <Name>Mastodon.API</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

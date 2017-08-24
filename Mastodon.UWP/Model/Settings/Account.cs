@@ -8,8 +8,6 @@ namespace Mastodon.UWP.Model.Settings
 {
     public class Account
     {
-        public string AccessId { get; set; }
-        public string Instance { get; set; }
-        public string Username { get; set; }
+        public API.Models.AccountModel AccountModel;
     }
 }

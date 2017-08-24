@@ -8,18 +8,16 @@ using System.Threading.Tasks;
 
 namespace Mastodon.API.Apis
 {
-    class Account
+    public class Account
     {
-        public static async Task<AccountModel> GetAccount(string domain, string accessToken, string id)
+        public static async Task<AccountModel> VerifyCredentials(string domain, string accessToken)
         {
-            if (id == null)
-            {
-                return await Services.HttpManager.GetAsync<AccountModel>($"{domain}{Services.Url.VerifyCredentials}", accessToken, null);
-            }
-            else
-            {
-                return await Services.HttpManager.GetAsync<AccountModel>(string.Format(Services.Url.FetchingAccount, id), accessToken, null);
-            }
+             return await Services.HttpManager.GetAsync<AccountModel>($"{domain}{Services.Url.VerifyCredentials}", accessToken, null);
+        }
+
+        public static async Task<AccountModel> FetchAccount(string domain, string accessToken, string id)
+        {
+            return await Services.HttpManager.GetAsync<AccountModel>($"{domain}{string.Format(Services.Url.FetchingAccount, id)}", accessToken, null);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Mastodon.API.Models
     public class TokenModel
     {
         [JsonProperty("access_token")]
-        public int AccessToken { get; set; }
+        public string AccessToken { get; set; }
         [JsonProperty("token_type")]
         public string TokenType { get; set; }
         [JsonProperty("scope")]

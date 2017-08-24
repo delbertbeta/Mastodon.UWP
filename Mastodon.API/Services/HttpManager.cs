@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Mastodon.API.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,13 +20,34 @@ namespace Mastodon.API.Services
                 {
                     url = "https://" + url;
                 }
-                if (string.IsNullOrEmpty(token))
+                if (!string.IsNullOrEmpty(token))
                 {
                     httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                 }
                 using (var res = await httpClient.PostAsync(url, param))
                 {
-                    return JsonConvert.DeserializeObject<TModel>(await res.Content.ReadAsStringAsync());
+                    if (res.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        try
+                        {
+                            return JsonConvert.DeserializeObject<TModel>(await res.Content.ReadAsStringAsync());
+                        }
+                        catch (Exception e) when (e is JsonReaderException)
+                        {
+                            throw new Exception("Not a JSON format document.", e);
+                        }
+                    }
+                    else
+                    {
+                        try
+                        {
+                            throw new MastodonException("Illegal API request.", JsonConvert.DeserializeObject<ErrorModel>(await res.Content.ReadAsStringAsync()));
+                        }
+                        catch (Exception e)
+                        {
+                            throw new Exception("Not a JSON format document.", e);
+                        }
+                    }
                 }
             }
         }
@@ -38,13 +60,34 @@ namespace Mastodon.API.Services
                 {
                     url = "https://" + url;
                 }
-                if (string.IsNullOrEmpty(token))
+                if (!string.IsNullOrWhiteSpace(token))
                 {
                     httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                 }
-                using (var res = await httpClient.GetAsync(url+"&"+param))
+                using (var res = await httpClient.GetAsync(url + (string.IsNullOrWhiteSpace(param) ? "" : "&" + param)))
                 {
-                    return JsonConvert.DeserializeObject<TModel>(await res.Content.ReadAsStringAsync());
+                    if (res.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        try
+                        {
+                            return JsonConvert.DeserializeObject<TModel>(await res.Content.ReadAsStringAsync());
+                        }
+                        catch (Exception e) when (e is JsonReaderException)
+                        {
+                            throw new Exception("Not a JSON format document.", e);
+                        }
+                    }
+                    else
+                    {
+                        try
+                        {
+                            throw new MastodonException("Illegal API request.", JsonConvert.DeserializeObject<ErrorModel>(await res.Content.ReadAsStringAsync()));
+                        }
+                        catch (Exception e)
+                        {
+                            throw new Exception("Not a JSON format document.", e);
+                        }
+                    }
                 }
             }
         }

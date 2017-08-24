@@ -12,10 +12,12 @@ namespace Mastodon.API.Services
 
         public const string AppsRegister = prefix + "/apps";
 
-        public const string UserLoginViaApi = prefix + "/oauth/token";
+        public const string UserLoginViaApi = "/oauth/token";
 
-        public const string VerifyCredentials = prefix + "/api/v1/accounts/verify_credentials";
+        public const string VerifyCredentials = prefix + "/accounts/verify_credentials";
 
-        public const string FetchingAccount = prefix + "/api/v1/accounts/{0}";
+        public const string FetchingAccount = prefix + "/accounts/{0}";
+
+        public const string Instance = prefix + "/instance";
     }
 }

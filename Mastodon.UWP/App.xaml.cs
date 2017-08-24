@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mastodon.UWP.Model;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,6 +23,9 @@ namespace Mastodon.UWP
     /// </summary>
     sealed partial class App : Application
     {
+        // Global settings defined here.
+        public static Setting AppSetting;
+
         /// <summary>
         /// 初始化单一实例应用程序对象。这是执行的创作代码的第一行，
         /// 已执行，逻辑上等同于 main() 或 WinMain()。
@@ -37,7 +41,7 @@ namespace Mastodon.UWP
         /// 将在启动应用程序以打开特定文件等情况下使用。
         /// </summary>
         /// <param name="e">有关启动请求和过程的详细信息。</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;
 
@@ -55,6 +59,10 @@ namespace Mastodon.UWP
                     //TODO: 从之前挂起的应用程序加载状态
                 }
 
+                // Load settings
+
+                AppSetting = await Setting.GetSetting();
+
                 // 将框架放在当前窗口中
                 Window.Current.Content = rootFrame;
             }
@@ -66,7 +74,15 @@ namespace Mastodon.UWP
                     // 当导航堆栈尚未还原时，导航到第一页，
                     // 并通过将所需信息作为导航参数传入来配置
                     // 参数
-                    rootFrame.Navigate(typeof(View.Instance), e.Arguments);
+
+                    if (AppSetting.Accounts.Count == 0)
+                    {
+                        rootFrame.Navigate(typeof(Pages.InstancePage), e.Arguments);
+                    }
+                    else
+                    {
+                        rootFrame.Navigate(typeof(Pages.TimeLinePage), e.Arguments);
+                    }
                 }
                 // 确保当前窗口处于活动状态
                 Window.Current.Activate();
