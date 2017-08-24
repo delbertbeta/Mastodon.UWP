@@ -111,12 +111,15 @@
     <Compile Include="Apis\Base.cs" />
     <Compile Include="Apis\Instance.cs" />
     <Compile Include="Apis\Oauth.cs" />
+    <Compile Include="Apis\Timeline.cs" />
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\ApplicationModel.cs" />
+    <Compile Include="Models\AttachmentModel.cs" />
     <Compile Include="Models\ErrorModel.cs" />
     <Compile Include="Models\MastodonException.cs" />
     <Compile Include="Models\InstanceModel.cs" />
     <Compile Include="Models\OauthModel.cs" />
+    <Compile Include="Models\StatusModel.cs" />
     <Compile Include="Models\TokenModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\HttpManager.cs" />

@@ -15,27 +15,36 @@ using Windows.UI.Xaml.Navigation;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
-namespace Mastodon.UWP.Pages
+namespace Mastodon.UWP.View
 {
     /// <summary>
     /// 可用于自身或导航至 Frame 内部的空白页。
     /// </summary>
-    public sealed partial class TimeLinePage : Page
+    public sealed partial class StatusDetailView : Page
     {
-        public TimeLinePage()
+        public StatusDetailView()
         {
             this.InitializeComponent();
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private void ContentPivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            MasterFrame.Navigate(typeof(View.StatusDetailView));
-            DetailFrame.Navigate(typeof(View.StandByView));
+            //switch (ContentPivot.SelectedIndex)
+            //{
+            //    case 0:
+            //        if (!(HomeFrame.Content is View.HomeView))
+            //        {
+                        
+            //        }
+            //        break;
+            //    default:
+            //        break;
+            //}
         }
 
-        private void FontIcon_Tapped(object sender, TappedRoutedEventArgs e)
+        private void ContentPivot_Loaded(object sender, RoutedEventArgs e)
         {
-            MenuSplitView.IsPaneOpen = !MenuSplitView.IsPaneOpen;
+            HomeFrame.Content = new View.HomeView();
         }
     }
 }

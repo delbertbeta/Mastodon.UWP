@@ -5,9 +5,51 @@
     xmlns:local="using:Mastodon.UWP.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Loaded="Page_Loaded">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        
+    <Grid Background="#191b22">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*" />
+            <ColumnDefinition Width="5*" />
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <FontIcon Margin="15 0 0 0" FontFamily="Segoe MDL2 Assets" Glyph="&#xE700;" Tapped="FontIcon_Tapped"/>
+                <TextBlock Margin="15 0 0 0" Text="Title" FontSize="26" FontWeight="Light" />
+            </StackPanel>
+            <Frame Name="MasterFrame" Grid.Row="1" VerticalAlignment="Stretch" />
+        </Grid>
+
+        <Frame Name="DetailFrame" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+
+        <SplitView Grid.Column="0" Name="MenuSplitView" DisplayMode="Overlay">
+            <SplitView.Pane>
+                <ListBox>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <FontIcon Margin="10 0 0 0" FontFamily="Segoe MDL2 Assets" Glyph="&#xE700;" Tapped="FontIcon_Tapped"/>
+                            <TextBlock Margin="10 0 0 0" Text="Title" />
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <FontIcon Margin="10 0 0 0" FontFamily="Segoe MDL2 Assets" Glyph="&#xE700;" Tapped="FontIcon_Tapped"/>
+                            <TextBlock Margin="10 0 0 0" Text="Title"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <FontIcon Margin="10 0 0 0" FontFamily="Segoe MDL2 Assets" Glyph="&#xE700;" Tapped="FontIcon_Tapped"/>
+                            <TextBlock Margin="10 0 0 0" Text="Title"  />
+                        </StackPanel>
+                    </ListBoxItem>
+                </ListBox>
+            </SplitView.Pane>
+        </SplitView>
     </Grid>
 </Page>
