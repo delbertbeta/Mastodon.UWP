@@ -108,6 +108,7 @@
       <DependentUpon>TimeLinePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ListPushHelper.cs" />
     <Compile Include="View\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
@@ -130,6 +131,7 @@
   <ItemGroup>
     <Content Include="Assets\Images\Background.jpg" />
     <Content Include="Assets\Images\Elephant.png" />
+    <Content Include="Assets\Images\ForwardIcon.svg" />
     <Content Include="Assets\Images\LogoFull.png" />
     <Content Include="Assets\Images\LogoFull.svg" />
     <Content Include="Properties\Default.rd.xml" />
@@ -191,9 +193,7 @@
       <Version>10.0.3</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Mastodon.API\Mastodon.API.csproj">
       <Project>{13c7afa5-8eaf-40f6-a705-ec62cb133c62}</Project>

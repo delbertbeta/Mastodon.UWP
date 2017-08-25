@@ -5,11 +5,34 @@
     xmlns:local="using:Mastodon.UWP.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uwp="using:FontAwesome.UWP"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid>
-
+    <Grid Background="#282C37">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Rectangle Name="RoundedFace" Margin="5" Width="45" Height="45" RadiusX="4" RadiusY="4" VerticalAlignment="Top">
+            <Rectangle.Fill>
+                <ImageBrush Stretch="UniformToFill"/>
+            </Rectangle.Fill>
+        </Rectangle>
+        <StackPanel Padding="5" Grid.Column="1" HorizontalAlignment="Stretch">
+            <RelativePanel HorizontalAlignment="Stretch">
+                <TextBlock Name="UsernameTextBlock" Text="Username" FontWeight="Bold" />
+                <TextBlock RelativePanel.RightOf="UsernameTextBlock" Margin="5 0 0 0" Foreground="#606984" Text="Accr" />
+                <TextBlock Text="Yesterday" RelativePanel.AlignRightWithPanel="True" Foreground="#606984" />
+            </RelativePanel>
+            <TextBlock Margin="0 5 0 0" Name="StatueContentTextBlock" TextWrapping="WrapWholeWords" Text="Test" />
+            <StackPanel Orientation="Horizontal" Margin="0 20 0 5">
+                <uwp:FontAwesome FontSize="16" Icon="Reply" Foreground="#606984" Margin="0 0 15 0"/>
+                <Image Source="ms-appx:///Assets/Images/ForwardIcon.svg" Width="16" Margin="0 0 15 0" />
+                <uwp:FontAwesome FontSize="16" Icon="Star" Foreground="#606984" Margin="0 0 15 0" />
+                <uwp:FontAwesome FontSize="16" Icon="EllipsisH" Foreground="#606984" />
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </UserControl>

@@ -29,7 +29,7 @@ namespace Mastodon.UWP.Pages
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            MasterFrame.Navigate(typeof(View.StatusDetailView));
+            MasterFrame.Navigate(typeof(View.MasterView));
             DetailFrame.Navigate(typeof(View.StandByView));
         }
 

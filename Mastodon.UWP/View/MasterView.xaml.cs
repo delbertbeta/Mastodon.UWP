@@ -26,5 +26,15 @@ namespace Mastodon.UWP.View
         {
             this.InitializeComponent();
         }
+
+        private void ContentPivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+        }
+
+        private void ContentPivot_Loaded(object sender, RoutedEventArgs e)
+        {
+            HomeFrame.Content = new View.HomeView();
+        }
     }
 }

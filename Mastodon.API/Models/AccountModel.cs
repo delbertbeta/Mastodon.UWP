@@ -42,4 +42,16 @@ namespace Mastodon.API.Models
         [JsonProperty("header_static")]
         public string HeaderStatic { get; set; }
     }
+
+    public class MentionModel
+    {
+        [JsonProperty("url")]
+        public string Url { get; set; }
+        [JsonProperty("acct")]
+        public string Acct { get; set; }
+        [JsonProperty("id")]
+        public int Id { get; set; }
+        [JsonProperty("username")]
+        public string Username { get; set; }
+    }
 }

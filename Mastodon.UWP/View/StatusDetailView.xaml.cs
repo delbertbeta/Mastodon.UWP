@@ -26,25 +26,5 @@ namespace Mastodon.UWP.View
         {
             this.InitializeComponent();
         }
-
-        private void ContentPivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //switch (ContentPivot.SelectedIndex)
-            //{
-            //    case 0:
-            //        if (!(HomeFrame.Content is View.HomeView))
-            //        {
-                        
-            //        }
-            //        break;
-            //    default:
-            //        break;
-            //}
-        }
-
-        private void ContentPivot_Loaded(object sender, RoutedEventArgs e)
-        {
-            HomeFrame.Content = new View.HomeView();
-        }
     }
 }

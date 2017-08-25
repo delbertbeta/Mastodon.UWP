@@ -7,6 +7,14 @@ using System.Threading.Tasks;
 
 namespace Mastodon.API.Models
 {
+    public class TagModel
+    {
+        [JsonProperty("name")]
+        public string Name { get; set; }
+        [JsonProperty("url")]
+        public string Url { get; set; }
+    }
+
     public class StatusModel
     {
         [JsonProperty("id")]
@@ -32,30 +40,28 @@ namespace Mastodon.API.Models
         [JsonProperty("media_attachments")]
         public List<AttachmentModel> MediaAttachments { get; set; }
         [JsonProperty("mentions")]
-        public List<object> Mentions { get; set; }
-        [JsonProperty("id")]
-        public List<object> tags { get; set; }
-        [JsonProperty("id")]
-        public string uri { get; set; }
-        [JsonProperty("id")]
-        public string content { get; set; }
-        [JsonProperty("id")]
-        public string url { get; set; }
-        [JsonProperty("id")]
-        public int reblogs_count { get; set; }
-        [JsonProperty("id")]
-        public int favourites_count { get; set; }
-        [JsonProperty("id")]
-        public List<object> pixiv_cards { get; set; }
-        [JsonProperty("id")]
-        public bool pinned { get; set; }
-        [JsonProperty("id")]
-        public Reblog reblog { get; set; }
-        [JsonProperty("id")]
-        public object favourited { get; set; }
-        [JsonProperty("id")]
-        public object reblogged { get; set; }
-        [JsonProperty("id")]
-        public object muted { get; set; }
+        public List<MentionModel> Mentions { get; set; }
+        [JsonProperty("tags")]
+        public List<TagModel> Tags { get; set; }
+        [JsonProperty("uri")]
+        public string Uri { get; set; }
+        [JsonProperty("content")]
+        public string Content { get; set; }
+        [JsonProperty("url")]
+        public string Url { get; set; }
+        [JsonProperty("reblogs_count")]
+        public int ReblogsCount { get; set; }
+        [JsonProperty("favourites_count")]
+        public int FavouritesCount { get; set; }
+        [JsonProperty("pinned")]
+        public bool Pinned { get; set; }
+        [JsonProperty("reblog")]
+        public StatusModel Reblog { get; set; }
+        [JsonProperty("favourited")]
+        public bool Favourited { get; set; }
+        [JsonProperty("reblogged")]
+        public bool Reblogged { get; set; }
+        [JsonProperty("muted")]
+        public bool Muted { get; set; }
     }
 }

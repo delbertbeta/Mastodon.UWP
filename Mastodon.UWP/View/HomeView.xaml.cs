@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Mastodon.API.Models;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -19,9 +21,29 @@ namespace Mastodon.UWP.View
 {
     public sealed partial class HomeView : UserControl
     {
+        public ObservableCollection<StatusModel> StatusList;
+
         public HomeView()
         {
             this.InitializeComponent();
+            StatusList = new ObservableCollection<StatusModel>();
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            StatusList.Add(new StatusModel());
+            StatusList.Add(new StatusModel());
+
+            StatusList.Add(new StatusModel());
+            StatusList.Add(new StatusModel());
+            StatusList.Add(new StatusModel());
+            StatusList.Add(new StatusModel());
+            StatusList.Add(new StatusModel());
+            StatusList.Add(new StatusModel());
+            StatusList.Add(new StatusModel());
+            StatusList.Add(new StatusModel());
+
+
         }
     }
 }

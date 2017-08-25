@@ -64,7 +64,7 @@ namespace Mastodon.API.Services
                 {
                     httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                 }
-                using (var res = await httpClient.GetAsync(url + (string.IsNullOrWhiteSpace(param) ? "" : "&" + param)))
+                using (var res = await httpClient.GetAsync(url + (string.IsNullOrWhiteSpace(param) ? "" : "?" + param)))
                 {
                     if (res.StatusCode == System.Net.HttpStatusCode.OK)
                     {

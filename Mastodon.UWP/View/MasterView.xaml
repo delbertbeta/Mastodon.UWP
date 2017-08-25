@@ -5,9 +5,41 @@
     xmlns:local="using:Mastodon.UWP.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:fa="using:FontAwesome.UWP"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Grid Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Pivot Name="ContentPivot" Grid.Row="1" Margin="0 -46 0 0" SelectionChanged="ContentPivot_SelectionChanged" Loaded="ContentPivot_Loaded">
+            <PivotItem>
+                <Frame Name="HomeFrame" />
+            </PivotItem>
+            <PivotItem>
+                <TextBlock Text="Developing..." />
+            </PivotItem>
+            <PivotItem>
+                <TextBlock Text="Developing..." />
+            </PivotItem>
+            <PivotItem>
+                <TextBlock Text="Developing..." />
+            </PivotItem>
+        </Pivot>
+        <ListBox Background="#393f4f" SelectedIndex="{x:Bind ContentPivot.SelectedIndex, Mode=TwoWay}" ItemContainerStyle="{StaticResource TitleListBoxItemStyle}">
+            <ListBox.Items>
+                <fa:FontAwesome Icon="Home" FontSize="25" />
+                <fa:FontAwesome Icon="Bell" FontSize="23" />
+                <fa:FontAwesome Icon="Users" FontSize="23" />
+                <fa:FontAwesome Icon="Globe" FontSize="25" />
+            </ListBox.Items>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"></StackPanel>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
     </Grid>
 </Page>
