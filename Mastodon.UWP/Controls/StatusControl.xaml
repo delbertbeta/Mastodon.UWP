@@ -6,30 +6,38 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uwp="using:FontAwesome.UWP"
+    xmlns:api="using:Mastodon.API.Models"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid Background="#282C37">
+    <Grid Background="#282C37" Height="auto">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Rectangle Name="RoundedFace" Margin="5" Width="45" Height="45" RadiusX="4" RadiusY="4" VerticalAlignment="Top">
+        <Rectangle Name="RoundedFace" Margin="10 10 5 0" Width="45" Height="45" RadiusX="4" RadiusY="4" VerticalAlignment="Top">
             <Rectangle.Fill>
-                <ImageBrush Stretch="UniformToFill"/>
+                <ImageBrush Stretch="UniformToFill" ImageSource="{x:Bind Status.FaceImage}"/>
             </Rectangle.Fill>
         </Rectangle>
-        <StackPanel Padding="5" Grid.Column="1" HorizontalAlignment="Stretch">
+        <StackPanel Padding="10" Grid.Column="1" HorizontalAlignment="Stretch">
             <RelativePanel HorizontalAlignment="Stretch">
-                <TextBlock Name="UsernameTextBlock" Text="Username" FontWeight="Bold" />
-                <TextBlock RelativePanel.RightOf="UsernameTextBlock" Margin="5 0 0 0" Foreground="#606984" Text="Accr" />
-                <TextBlock Text="Yesterday" RelativePanel.AlignRightWithPanel="True" Foreground="#606984" />
+                <TextBlock Name="UsernameTextBlock" Text="{x:Bind Status.Username}" FontWeight="Bold" />
+                <TextBlock RelativePanel.RightOf="UsernameTextBlock" Margin="5 0 0 0" Foreground="#606984" Text="{x:Bind Status.Acct}" />
+                <TextBlock Text="{x:Bind Status.CreateAt}" RelativePanel.AlignRightWithPanel="True" Foreground="#606984" />
             </RelativePanel>
-            <TextBlock Margin="0 5 0 0" Name="StatueContentTextBlock" TextWrapping="WrapWholeWords" Text="Test" />
-            <StackPanel Orientation="Horizontal" Margin="0 20 0 5">
+            <TextBlock Margin="0 5 0 0" Name="StatueContentTextBlock" TextWrapping="WrapWholeWords" Text="{x:Bind Status.Content}" />
+            <GridView Margin="0 10 0 10" ItemsSource="{x:Bind Status.Attachment}" SelectionMode="None">
+                <GridView.ItemTemplate>
+                    <DataTemplate x:DataType="api:AttachmentModel">
+                        <Image Margin="5 5 5 5" Width="100" Height="100" Source="{x:Bind PreviewUrl}" Stretch="UniformToFill"/>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+            </GridView>
+            <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
                 <uwp:FontAwesome FontSize="16" Icon="Reply" Foreground="#606984" Margin="0 0 15 0"/>
-                <Image Source="ms-appx:///Assets/Images/ForwardIcon.svg" Width="16" Margin="0 0 15 0" />
+                <uwp:FontAwesome FontSize="16" Icon="Retweet" Foreground="#606984" Margin="0 0 15 0" />
                 <uwp:FontAwesome FontSize="16" Icon="Star" Foreground="#606984" Margin="0 0 15 0" />
                 <uwp:FontAwesome FontSize="16" Icon="EllipsisH" Foreground="#606984" />
             </StackPanel>

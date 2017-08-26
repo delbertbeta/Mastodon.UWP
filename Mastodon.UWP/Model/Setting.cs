@@ -20,7 +20,7 @@ namespace Mastodon.UWP.Model
 
         public List<Account> Accounts { get; set; }
 
-        public int? SelectedAccountIndex { get; set; }
+        public int SelectedAccountIndex { get; set; }
 
         public async Task SaveSetting()
         {
@@ -40,7 +40,7 @@ namespace Mastodon.UWP.Model
             {
                 var setting = new Setting();
                 setting.Accounts = new List<Account>();
-                setting.SelectedAccountIndex = null;
+                setting.SelectedAccountIndex = 0;
                 await setting.SaveSetting();
                 return setting;
             }

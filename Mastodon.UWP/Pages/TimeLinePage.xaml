@@ -5,8 +5,10 @@
     xmlns:local="using:Mastodon.UWP.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uwp="using:FontAwesome.UWP"
     mc:Ignorable="d"
-    Loaded="Page_Loaded">
+    Loaded="Page_Loaded"
+    Loading="Page_Loading">
 
     <Grid Background="#191b22">
         <Grid.ColumnDefinitions>
@@ -18,37 +20,34 @@
                 <RowDefinition Height="60" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                <FontIcon Margin="15 0 0 0" FontFamily="Segoe MDL2 Assets" Glyph="&#xE700;" Tapped="FontIcon_Tapped"/>
-                <TextBlock Margin="15 0 0 0" Text="Title" FontSize="26" FontWeight="Light" />
-            </StackPanel>
+            <RelativePanel VerticalAlignment="Center">
+                <FontIcon Name="HamburgerFontIcon" Margin="15 0 0 0" FontFamily="Segoe MDL2 Assets" Glyph="&#xE700;" Tapped="FontIcon_Tapped" RelativePanel.AlignVerticalCenterWithPanel="True"/>
+                <TextBlock Name="TitleTextBlock" Margin="15 0 0 0" Text="Mastodon UWP" FontSize="26" FontWeight="Light" RelativePanel.RightOf="HamburgerFontIcon" />
+                <Button Name="SendButton" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Background="#2588D0" Margin="0 0 20 0" Click="SendButton_Click">
+                    <uwp:FontAwesome Icon="Pencil" />
+                </Button>
+            </RelativePanel>
             <Frame Name="MasterFrame" Grid.Row="1" VerticalAlignment="Stretch" />
         </Grid>
 
         <Frame Name="DetailFrame" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
 
-        <SplitView Grid.Column="0" Name="MenuSplitView" DisplayMode="Overlay">
+        <SplitView Grid.Column="0" Name="MenuSplitView" DisplayMode="Overlay" PaneBackground="#404657">
             <SplitView.Pane>
-                <ListBox>
-                    <ListBoxItem>
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <FontIcon Margin="10 0 0 0" FontFamily="Segoe MDL2 Assets" Glyph="&#xE700;" Tapped="FontIcon_Tapped"/>
-                            <TextBlock Margin="10 0 0 0" Text="Title" />
-                        </StackPanel>
-                    </ListBoxItem>
-                    <ListBoxItem>
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <FontIcon Margin="10 0 0 0" FontFamily="Segoe MDL2 Assets" Glyph="&#xE700;" Tapped="FontIcon_Tapped"/>
-                            <TextBlock Margin="10 0 0 0" Text="Title"/>
-                        </StackPanel>
-                    </ListBoxItem>
-                    <ListBoxItem>
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <FontIcon Margin="10 0 0 0" FontFamily="Segoe MDL2 Assets" Glyph="&#xE700;" Tapped="FontIcon_Tapped"/>
-                            <TextBlock Margin="10 0 0 0" Text="Title"  />
-                        </StackPanel>
-                    </ListBoxItem>
-                </ListBox>
+                <RelativePanel HorizontalAlignment="Stretch">
+                    <RelativePanel RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignLeftWithPanel="True" Height="150">
+                        <RelativePanel.Background>
+                            <ImageBrush ImageSource="{x:Bind profit.HeaderImage}" Stretch="UniformToFill" Opacity="0.2" />
+                        </RelativePanel.Background>
+                        <Rectangle Name="RoundedFace" Margin="10" Width="80" Height="80" RadiusX="8" RadiusY="8" VerticalAlignment="Top" RelativePanel.AlignVerticalCenterWithPanel="True">
+                            <Rectangle.Fill>
+                                <ImageBrush ImageSource="{x:Bind profit.FaceImage}" Stretch="UniformToFill"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <TextBlock Text="{x:Bind profit.Username}" RelativePanel.RightOf="RoundedFace" RelativePanel.AlignTopWith="RoundedFace" Margin="0 10 0 0" FontWeight="Bold" FontSize="22" />
+                        <TextBlock Text="{x:Bind profit.Instance}" RelativePanel.RightOf="RoundedFace" RelativePanel.AlignBottomWith="RoundedFace" Margin="0 0 0 10" Foreground="#D8E0E7" />
+                    </RelativePanel>
+                </RelativePanel>
             </SplitView.Pane>
         </SplitView>
     </Grid>

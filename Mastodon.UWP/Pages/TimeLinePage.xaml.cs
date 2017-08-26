@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Mastodon.UWP.Services;
+using Mastodon.UWP.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,6 +13,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
@@ -22,9 +25,19 @@ namespace Mastodon.UWP.Pages
     /// </summary>
     public sealed partial class TimeLinePage : Page
     {
+        public SimpleProfile profit;
         public TimeLinePage()
         {
             this.InitializeComponent();
+            profit = new SimpleProfile()
+            {
+                Username = App.AppSetting.Accounts[App.AppSetting.SelectedAccountIndex].AccountModel.DisplayName,
+                Instance = "at " + App.AppSetting.Accounts[App.AppSetting.SelectedAccountIndex].Instance.Title,
+                FaceImage = App.AppSetting.Accounts[App.AppSetting.SelectedAccountIndex].AccountModel.AvatarStatic,
+                HeaderImage = App.AppSetting.Accounts[App.AppSetting.SelectedAccountIndex].AccountModel.HeaderStatic
+                //FaceImage = new BitmapImage(),
+                //HeaderImage = new BitmapImage()
+            };
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -37,5 +50,23 @@ namespace Mastodon.UWP.Pages
         {
             MenuSplitView.IsPaneOpen = !MenuSplitView.IsPaneOpen;
         }
+
+        private void Page_Loading(FrameworkElement sender, object args)
+        {
+            //var faceImageFile = await WebResourceManager.GetWebResource(App.AppSetting.Accounts[App.AppSetting.SelectedAccountIndex].AccountModel.AvatarStatic, ResourceType.Face);
+            //using (var faceImageStream = await faceImageFile.OpenAsync(Windows.Storage.FileAccessMode.Read))
+            //    await profit.FaceImage.SetSourceAsync(faceImageStream);
+            //var headerImageFile = await WebResourceManager.GetWebResource(App.AppSetting.Accounts[App.AppSetting.SelectedAccountIndex].AccountModel.HeaderStatic, ResourceType.Header);
+            //using (var headerImageStream = await headerImageFile.OpenAsync(Windows.Storage.FileAccessMode.Read))
+            //    await profit.HeaderImage.SetSourceAsync(headerImageStream);
+        }
+
+        private async void SendButton_Click(object sender, RoutedEventArgs e)
+        {
+            var contentDialog = new Controls.SendStatusContentDialog();
+            await contentDialog.ShowAsync();
+            
+        }
     }
 }
+

@@ -15,7 +15,7 @@ namespace Mastodon.API.Apis
             param += (maxId == null) ? "" : ("max_id=" + maxId.ToString()) + "&";
             param += (sinceId == null) ? "" : ("since_id=" + sinceId.ToString()) + "&";
             param += "limit=" + limit.ToString();
-            return await Services.HttpManager.GetAsync<List<StatusModel>>($"{domain}{Services.Url.Instance}", accessToken, null);
+            return await Services.HttpManager.GetAsync<List<StatusModel>>($"{domain}{Services.Url.TimelineHome}", accessToken, null);
         }
     }
 }

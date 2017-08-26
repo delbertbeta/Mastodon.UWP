@@ -19,5 +19,7 @@ namespace Mastodon.API.Services
         public const string FetchingAccount = prefix + "/accounts/{0}";
 
         public const string Instance = prefix + "/instance";
+
+        public const string TimelineHome = prefix + "/timelines/home";
     }
 }

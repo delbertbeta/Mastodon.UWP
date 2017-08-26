@@ -70,7 +70,8 @@ namespace Mastodon.API.Services
                     {
                         try
                         {
-                            return JsonConvert.DeserializeObject<TModel>(await res.Content.ReadAsStringAsync());
+                            var result = await res.Content.ReadAsStringAsync();
+                            return JsonConvert.DeserializeObject<TModel>(result);
                         }
                         catch (Exception e) when (e is JsonReaderException)
                         {
@@ -85,7 +86,7 @@ namespace Mastodon.API.Services
                         }
                         catch (Exception e)
                         {
-                            throw new Exception("Not a JSON format document.", e);
+                            throw new Exception("Network Error", e);
                         }
                     }
                 }

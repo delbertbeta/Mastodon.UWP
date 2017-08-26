@@ -12,16 +12,22 @@
     d:DesignWidth="400"
     Loaded="UserControl_Loaded">
 
-    <ListView VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ItemsSource="{x:Bind StatusList}" SelectionMode="None">
-        <ListView.ItemTemplate>
-            <DataTemplate x:DataType="api:StatusModel">
-                <control:StatusControl HorizontalAlignment="Stretch" Margin="0 5 0 5"/>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-        <ListView.ItemContainerStyle>
-            <Style TargetType="ListViewItem">
-                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-            </Style>
-        </ListView.ItemContainerStyle>
-    </ListView>
+    <Grid>
+        <ListView VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ItemsSource="{x:Bind StatusList}" SelectionMode="None">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="api:StatusModel">
+                    <control:StatusControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0 5 0 5"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Setter Property="VerticalContentAlignment" Value="Top" />
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+        <Button Name="FreshButton" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="40" Width="40" Margin="0 0 20 20" Click="FreshButton_Click">
+            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE895;" />
+        </Button>
+    </Grid>
 </UserControl>

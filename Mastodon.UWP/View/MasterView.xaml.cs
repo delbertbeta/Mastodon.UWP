@@ -22,6 +22,7 @@ namespace Mastodon.UWP.View
     /// </summary>
     public sealed partial class MasterView : Page
     {
+        
         public MasterView()
         {
             this.InitializeComponent();
@@ -29,7 +30,13 @@ namespace Mastodon.UWP.View
 
         private void ContentPivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+            switch (ContentPivot.SelectedIndex)
+            {
+                case 0:
+                    
+                default:
+                    break;
+            }
         }
 
         private void ContentPivot_Loaded(object sender, RoutedEventArgs e)

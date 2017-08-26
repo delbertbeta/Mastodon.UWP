@@ -9,5 +9,7 @@ namespace Mastodon.UWP.Model.Settings
     public class Account
     {
         public API.Models.AccountModel AccountModel;
+        public API.Models.TokenModel Token;
+        public API.Models.InstanceModel Instance;
     }
 }

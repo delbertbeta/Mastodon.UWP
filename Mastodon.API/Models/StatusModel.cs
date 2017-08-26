@@ -21,19 +21,19 @@ namespace Mastodon.API.Models
         public long Id { get; set; }
         [JsonProperty("created_at")]
         public string CreatedAt { get; set; }
-        [JsonProperty("in_reply_to_id")]
+        [JsonProperty("in_reply_to_id", NullValueHandling = NullValueHandling.Ignore)]
         public long? InReplyToId { get; set; }
-        [JsonProperty("in_reply_to_account_id")]
+        [JsonProperty("in_reply_to_account_id", NullValueHandling = NullValueHandling.Ignore)]
         public long InReplyToAccountId { get; set; }
-        [JsonProperty("sensitive")]
+        [JsonProperty("sensitive", NullValueHandling = NullValueHandling.Ignore)]
         public bool Sensitive { get; set; }
         [JsonProperty("spoiler_text")]
         public string SpoilerText { get; set; }
         [JsonProperty("visibility")]
         public string Visibility { get; set; }
-        [JsonProperty("language")]
+        [JsonProperty("language", NullValueHandling = NullValueHandling.Ignore)]
         public string Language { get; set; }
-        [JsonProperty("application")]
+        [JsonProperty("application", NullValueHandling = NullValueHandling.Ignore)]
         public ApplicationModel Application { get; set; }
         [JsonProperty("account")]
         public AccountModel Account { get; set; }
@@ -55,13 +55,13 @@ namespace Mastodon.API.Models
         public int FavouritesCount { get; set; }
         [JsonProperty("pinned")]
         public bool Pinned { get; set; }
-        [JsonProperty("reblog")]
+        [JsonProperty("reblog", NullValueHandling = NullValueHandling.Ignore)]
         public StatusModel Reblog { get; set; }
-        [JsonProperty("favourited")]
+        [JsonProperty("favourited, NullValueHandling = NullValueHandling.Ignore")]
         public bool Favourited { get; set; }
-        [JsonProperty("reblogged")]
+        [JsonProperty("reblogged", NullValueHandling = NullValueHandling.Ignore)]
         public bool Reblogged { get; set; }
-        [JsonProperty("muted")]
+        [JsonProperty("muted, NullValueHandling = NullValueHandling.Ignore")]
         public bool Muted { get; set; }
     }
 }

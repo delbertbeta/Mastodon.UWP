@@ -29,21 +29,19 @@ namespace Mastodon.UWP.View
             StatusList = new ObservableCollection<StatusModel>();
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            StatusList.Add(new StatusModel());
-            StatusList.Add(new StatusModel());
+            var account = App.AppSetting.Accounts[App.AppSetting.SelectedAccountIndex];
+            var source = await API.Apis.Timeline.GetHomeTimelines(account.Instance.Uri, account.Token.AccessToken, null, null, 20);
+            Services.ListPushHelper.PushToList(source, ref StatusList, Services.ListPushHelper.PushMethod.Foot);
+        }
 
-            StatusList.Add(new StatusModel());
-            StatusList.Add(new StatusModel());
-            StatusList.Add(new StatusModel());
-            StatusList.Add(new StatusModel());
-            StatusList.Add(new StatusModel());
-            StatusList.Add(new StatusModel());
-            StatusList.Add(new StatusModel());
-            StatusList.Add(new StatusModel());
-
-
+        private async void FreshButton_Click(object sender, RoutedEventArgs e)
+        {
+            var account = App.AppSetting.Accounts[App.AppSetting.SelectedAccountIndex];
+            var source = await API.Apis.Timeline.GetHomeTimelines(account.Instance.Uri, account.Token.AccessToken, null, null, 20);
+            StatusList.Clear();
+            Services.ListPushHelper.PushToList(source, ref StatusList, Services.ListPushHelper.PushMethod.Foot);
         }
     }
 }

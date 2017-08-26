@@ -87,7 +87,9 @@ namespace Mastodon.UWP.Pages
                     var account = await API.Apis.Account.VerifyCredentials(Url, token.AccessToken);
                     App.AppSetting.Accounts.Add(new Model.Settings.Account()
                     {
-                        AccountModel = account
+                        AccountModel = account,
+                        Token = token,
+                        Instance = instance
                     });
                     App.AppSetting.SelectedAccountIndex = App.AppSetting.Accounts.Count - 1;
                     await App.AppSetting.SaveSetting();
