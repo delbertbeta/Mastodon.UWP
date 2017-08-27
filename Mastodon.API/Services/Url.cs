@@ -25,5 +25,13 @@ namespace Mastodon.API.Services
         public const string Media = prefix + "/media";
 
         public const string Status = prefix + "/statuses";
+
+        public const string Reblog = prefix + "/statuses/{0}/reblog";
+
+        public const string UnReblog = prefix + "/statuses/{0}/unreblog";
+
+        public const string Favouriting = prefix + "/statuses/{0}/favourite";
+
+        public const string UnFavouriting = prefix + "/statuses/{0}/unfavourite";
     }
 }

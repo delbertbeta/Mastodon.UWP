@@ -24,5 +24,25 @@ namespace Mastodon.API.Apis
             };
             return await HttpManager.PostJsonAsync<StatusModel, SendStatusModel>($"{domain}{Url.Status}", accessToken, target);
         }
+
+        public static async Task<StatusModel> ReblogStatus(string domain, string accessToken, int id)
+        {
+            return await HttpManager.PostAsync<StatusModel>($"{domain}{string.Format(Url.Reblog, id)}", accessToken, null);
+        }
+
+        public static async Task<StatusModel> UnReblogStatus(string domain, string accessToken, int id)
+        {
+            return await HttpManager.PostAsync<StatusModel>($"{domain}{string.Format(Url.UnReblog, id)}", accessToken, null);
+        }
+
+        public static async Task<StatusModel> FavouritingStatus(string domain, string accessToken, int id)
+        {
+            return await HttpManager.PostAsync<StatusModel>($"{domain}{string.Format(Url.Favouriting, id)}", accessToken, null);
+        }
+
+        public static async Task<StatusModel> UnFavouritingStatus(string domain, string accessToken, int id)
+        {
+            return await HttpManager.PostAsync<StatusModel>($"{domain}{string.Format(Url.UnFavouriting, id)}", accessToken, null);
+        }
     }
 }

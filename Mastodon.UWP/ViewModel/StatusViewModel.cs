@@ -10,6 +10,7 @@ namespace Mastodon.UWP.ViewModel
 {
     public class StatusViewModel
     {
+        public int Id { get; set; }
         public string FaceImage { get; set; }
         public string Username { get; set; }
         private string _acct;
@@ -71,5 +72,6 @@ namespace Mastodon.UWP.ViewModel
             }
         }
         public List<API.Models.AttachmentModel> Attachment { get; set; }
+        public StatusViewModel ReplyStatus { get; set; }
     }
 }

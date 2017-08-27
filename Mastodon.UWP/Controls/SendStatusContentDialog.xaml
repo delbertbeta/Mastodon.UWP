@@ -14,6 +14,25 @@
             <TextBlock Text="Send a TOOT" FontSize="22" />
             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE894;" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" FontSize="16" Tapped="FontIcon_Tapped"/>
         </RelativePanel>
+        <Grid Name="ReplyStatusGrid" Background="#444B5D" Height="auto" Margin="0 0 0 10" Visibility="Collapsed" Width="400">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Rectangle Name="RoundedFace" Margin="10 10 5 0" Width="45" Height="45" RadiusX="4" RadiusY="4" VerticalAlignment="Top">
+                <Rectangle.Fill>
+                    <ImageBrush Stretch="UniformToFill" ImageSource="{x:Bind ContextStatus.FaceImage}"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <StackPanel Padding="10" Grid.Column="1" HorizontalAlignment="Stretch">
+                <RelativePanel HorizontalAlignment="Stretch">
+                    <TextBlock Name="UsernameTextBlock" Text="{x:Bind ContextStatus.Username}" FontWeight="Bold" />
+                    <TextBlock RelativePanel.RightOf="UsernameTextBlock" Margin="5 0 0 0" Foreground="#606984" Text="{x:Bind ContextStatus.Acct}" />
+                    <TextBlock Text="{x:Bind ContextStatus.CreateAt}" RelativePanel.AlignRightWithPanel="True" Foreground="#606984" />
+                </RelativePanel>
+                <TextBlock Margin="0 5 0 0" Name="StatueContentTextBlock" TextWrapping="WrapWholeWords" Text="{x:Bind ContextStatus.Content}" />
+            </StackPanel>
+        </Grid>
         <TextBox Name="TootTextBox" Width="400" Height="150" TextWrapping="Wrap" BorderThickness="0" PlaceholderText="Share the story you just fabricated..." Text="{x:Bind Status, Mode=TwoWay}" TextChanged="TootTextBox_TextChanged"/>
         <RelativePanel>
             <StackPanel Background="#393F4F" Orientation="Horizontal" HorizontalAlignment="Left">

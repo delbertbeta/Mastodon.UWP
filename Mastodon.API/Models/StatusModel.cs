@@ -18,13 +18,13 @@ namespace Mastodon.API.Models
     public class StatusModel
     {
         [JsonProperty("id")]
-        public long Id { get; set; }
+        public int Id { get; set; }
         [JsonProperty("created_at")]
         public string CreatedAt { get; set; }
         [JsonProperty("in_reply_to_id", NullValueHandling = NullValueHandling.Ignore)]
-        public long? InReplyToId { get; set; }
+        public int? InReplyToId { get; set; }
         [JsonProperty("in_reply_to_account_id", NullValueHandling = NullValueHandling.Ignore)]
-        public long InReplyToAccountId { get; set; }
+        public int InReplyToAccountId { get; set; }
         [JsonProperty("sensitive", NullValueHandling = NullValueHandling.Ignore)]
         public bool Sensitive { get; set; }
         [JsonProperty("spoiler_text")]

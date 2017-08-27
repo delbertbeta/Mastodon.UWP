@@ -25,6 +25,10 @@ namespace Mastodon.UWP.Controls
     {
         public StatusViewModel Status { get; set; }
 
+        public string ReblogedForeground { get; set; } = "#606984";
+
+        public string FavoritedForeground { get; set; } = "#606984";
+
         public StatusControl()
         {
             this.InitializeComponent();
@@ -43,8 +47,39 @@ namespace Mastodon.UWP.Controls
                     CreateAt = statusModel.CreatedAt,
                     FaceImage = statusModel.Account.AvatarStatic,
                     Content = statusModel.Content,
-                    Attachment = statusModel.MediaAttachments
+                    Attachment = statusModel.MediaAttachments,
+                    Id = statusModel.Id
                 };
+                if (statusModel.Reblog != null)
+                {
+                    Status.ReplyStatus = new StatusViewModel
+                    {
+                        Username = statusModel.Reblog.Account.Username,
+                        Acct = statusModel.Reblog.Account.Acct,
+                        CreateAt = statusModel.Reblog.CreatedAt,
+                        FaceImage = statusModel.Reblog.Account.AvatarStatic,
+                        Content = statusModel.Reblog.Content,
+                        Attachment = statusModel.Reblog.MediaAttachments,
+                        Id = statusModel.Reblog.Id
+                    };
+                    ReplyStackPanel.Visibility = Visibility.Visible;
+                }
+                if (statusModel.Reblogged == true)
+                {
+                    ReblogedForeground = "#2B90D9";
+                }
+                else
+                {
+                    ReblogedForeground = "#606984";
+                }
+                if (statusModel.Favourited == true)
+                {
+                    FavoritedForeground = "#CA8F04";
+                }
+                else
+                {
+                    FavoritedForeground = "#606984";
+                }
                 Bindings.Update();
                 //var faceFile = await WebResourceManager.GetWebResource(statusModel.Account.AvatarStatic, ResourceType.Face);
                 //using (var stream = await faceFile.OpenAsync(Windows.Storage.FileAccessMode.Read, Windows.Storage.StorageOpenOptions.AllowOnlyReaders))
@@ -61,6 +96,53 @@ namespace Mastodon.UWP.Controls
             var contentDialog = new OriginalImageContentDialog();
             contentDialog.DataContext = Status.Attachment[index].Url;
             await contentDialog.ShowAsync();
+        }
+
+        private async void ReplyIcon_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var contentDialog = new SendStatusContentDialog();
+            contentDialog.DataContext = this.Status;
+            await contentDialog.ShowAsync();
+        }
+
+        private async void ReblogedIcon_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var statusModel = this.DataContext as StatusModel;
+            var uri = App.AppSetting.Accounts[App.AppSetting.SelectedAccountIndex].Instance.Uri;
+            var token = App.AppSetting.Accounts[App.AppSetting.SelectedAccountIndex].Token.AccessToken;
+            if (statusModel.Reblogged == true)
+            {
+                await API.Apis.Status.UnReblogStatus(uri, token, statusModel.Id);
+                FavoritedForeground = "#606984";
+                Bindings.Update();
+            }
+            else
+            {
+                this.DataContext = await API.Apis.Status.ReblogStatus(uri, token, statusModel.Id);
+                ReblogedForeground = "#2B90D9";
+                Bindings.Update();
+            }
+
+            
+        }
+
+        private async void FavoritedIcon_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var statusModel = this.DataContext as StatusModel;
+            var uri = App.AppSetting.Accounts[App.AppSetting.SelectedAccountIndex].Instance.Uri;
+            var token = App.AppSetting.Accounts[App.AppSetting.SelectedAccountIndex].Token.AccessToken;
+            if (statusModel.Favourited == true)
+            {
+                await API.Apis.Status.UnFavouritingStatus(uri, token, statusModel.Id);
+                FavoritedForeground = "#606984";
+                Bindings.Update();
+            }
+            else
+            {
+                await API.Apis.Status.FavouritingStatus(uri, token, statusModel.Id);
+                FavoritedForeground = "#CA8F04";
+                Bindings.Update();
+            }
         }
     }
 }

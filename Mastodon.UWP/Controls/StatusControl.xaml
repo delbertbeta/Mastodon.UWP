@@ -35,10 +35,25 @@
                     </DataTemplate>
                 </GridView.ItemTemplate>
             </GridView>
+            <StackPanel Name="ReplyStackPanel" Padding="10" Grid.Column="1" HorizontalAlignment="Stretch" Visibility="Collapsed">
+                <RelativePanel HorizontalAlignment="Stretch">
+                    <TextBlock Name="ReplyUsernameTextBlock" Text="{x:Bind Status.ReplyStatus.Username}" FontWeight="Bold" />
+                    <TextBlock RelativePanel.RightOf="ReplyUsernameTextBlock" Margin="5 0 0 0" Foreground="#606984" Text="{x:Bind Status.ReplyStatus.Acct}" />
+                    <TextBlock Text="{x:Bind Status.ReplyStatus.CreateAt}" RelativePanel.AlignRightWithPanel="True" Foreground="#606984" />
+                </RelativePanel>
+                <TextBlock Margin="0 5 0 0" TextWrapping="WrapWholeWords" Text="{x:Bind Status.ReplyStatus.Content}" />
+                <GridView  Margin="0 10 0 10" ItemsSource="{x:Bind Status.ReplyStatus.Attachment}" SelectionMode="None">
+                    <GridView.ItemTemplate>
+                        <DataTemplate x:DataType="api:AttachmentModel">
+                            <Image Margin="0" Width="100" Height="100" Source="{x:Bind PreviewUrl}" Stretch="UniformToFill" Tapped="Image_Tapped"/>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>
+            </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
-                <uwp:FontAwesome FontSize="16" Icon="Reply" Foreground="#606984" Margin="0 0 15 0"/>
-                <uwp:FontAwesome FontSize="16" Icon="Retweet" Foreground="#606984" Margin="0 0 15 0" />
-                <uwp:FontAwesome FontSize="16" Icon="Star" Foreground="#606984" Margin="0 0 15 0" />
+                <uwp:FontAwesome x:Name="ReplyIcon" FontSize="16" Icon="Reply" Foreground="#606984" Margin="0 0 15 0" Tapped="ReplyIcon_Tapped"/>
+                <uwp:FontAwesome x:Name="ReblogedIcon" FontSize="16" Icon="Retweet" Foreground="{x:Bind ReblogedForeground}" Margin="0 0 15 0" Tapped="ReblogedIcon_Tapped" />
+                <uwp:FontAwesome x:Name="FavoritedIcon" FontSize="16" Icon="Star" Foreground="{x:Bind FavoritedForeground}" Margin="0 0 15 0" Tapped="FavoritedIcon_Tapped"/>
                 <uwp:FontAwesome FontSize="16" Icon="EllipsisH" Foreground="#606984" />
             </StackPanel>
         </StackPanel>

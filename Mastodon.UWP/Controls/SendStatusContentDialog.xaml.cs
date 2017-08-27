@@ -24,6 +24,7 @@ namespace Mastodon.UWP.Controls
 {
     public sealed partial class SendStatusContentDialog : ContentDialog
     {
+        public StatusViewModel ContextStatus { get { return this.DataContext as StatusViewModel; } }
         public string Status { get; set; }
         private List<API.Models.AttachmentModel> Attachments = new List<API.Models.AttachmentModel>();
         public ObservableCollection<LocalImagesViewModel> LocalImages = new ObservableCollection<LocalImagesViewModel>();
@@ -32,6 +33,13 @@ namespace Mastodon.UWP.Controls
         public SendStatusContentDialog()
         {
             this.InitializeComponent();
+            this.DataContextChanged += (s, e) =>
+            {
+                if (this.DataContext is StatusViewModel)
+                {
+                    ReplyStatusGrid.Visibility = Visibility.Visible;
+                }
+            };
         }
 
         private void FontIcon_Tapped(object sender, TappedRoutedEventArgs e)
@@ -129,7 +137,7 @@ namespace Mastodon.UWP.Controls
                     double progress = count / LocalImageFiles.Count;
                     Progress.Value = progress;
                 }
-                await API.Apis.Status.PostStatus(App.AppSetting.Accounts[App.AppSetting.SelectedAccountIndex].Instance.Uri, App.AppSetting.Accounts[App.AppSetting.SelectedAccountIndex].Token.AccessToken, Status, null, mediaIds, false, "", "public");
+                await API.Apis.Status.PostStatus(App.AppSetting.Accounts[App.AppSetting.SelectedAccountIndex].Instance.Uri, App.AppSetting.Accounts[App.AppSetting.SelectedAccountIndex].Token.AccessToken, Status, ContextStatus?.Id, mediaIds, false, "", "public");
                 this.Hide();
             }
             catch
