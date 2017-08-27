@@ -92,5 +92,53 @@ namespace Mastodon.API.Services
                 }
             }
         }
+
+        static public async Task<TModel> PostJsonAsync<TModel, ObjectModel>(string url, string token, ObjectModel target)
+        {
+            using (var httpClient = new HttpClient())
+            {
+                if (!url.StartsWith("http"))
+                {
+                    url = "https://" + url;
+                }
+                if (!string.IsNullOrWhiteSpace(token))
+                {
+                    httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                }
+                var payload = JsonConvert.SerializeObject(target, new JsonSerializerSettings {
+                    NullValueHandling = NullValueHandling.Include
+                });
+                httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                var request = new HttpRequestMessage(HttpMethod.Post, url);
+                request.Content = new StringContent(payload, Encoding.UTF8, "application/json");
+                using (var res = await httpClient.SendAsync(request))
+                {
+                    if (res.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        try
+                        {
+                            var result = await res.Content.ReadAsStringAsync();
+                            return JsonConvert.DeserializeObject<TModel>(result);
+                        }
+                        catch (Exception e) when (e is JsonReaderException)
+                        {
+                            throw new Exception("Not a JSON format document.", e);
+                        }
+                    }
+                    else
+                    {
+                        try
+                        {
+                            throw new MastodonException("Illegal API request.", JsonConvert.DeserializeObject<ErrorModel>(await res.Content.ReadAsStringAsync()));
+                        }
+                        catch (Exception e)
+                        {
+                            throw new Exception("Network Error", e);
+                        }
+                    }
+                }
+            }
+
+        }
     }
 }

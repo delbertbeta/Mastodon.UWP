@@ -1,4 +1,5 @@
-﻿using Mastodon.UWP.ViewModel;
+﻿using Mastodon.API.Models;
+using Mastodon.UWP.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -51,7 +52,7 @@ namespace Mastodon.UWP.Controls
             if (files.Count > 0)
             {
                 // Application now has read/write access to the picked file(s)
-                for (int i = 0; i < files.Count && i < 4; i++)
+                for (int i = 0; i < files.Count && i < (4 - LocalImageFiles.Count); i++)
                 {
                     var file = files[i];
                     try
@@ -76,6 +77,66 @@ namespace Mastodon.UWP.Controls
             else
             {
                 // User closed or cancled the picker, do nothing here.
+            }
+        }
+
+        private void DeleteFontIcon_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var image = (((sender as FontIcon).Parent as Grid).Children[0] as Image).Source as BitmapImage;
+            int index = 0;
+            foreach (var item in LocalImages)
+            {
+                if (item.Image == image)
+                {
+                    index = LocalImages.IndexOf(item);
+                    break;
+                }
+            }
+            LocalImages.RemoveAt(index);
+            LocalImageFiles.RemoveAt(index);
+        }
+
+        private void TootTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            int length = 500 - TootTextBox.Text.Length;
+            RemainWords.Text = length.ToString();
+            if (length < 0 && length == 500)
+            {
+                TootButton.IsEnabled = false;
+            }
+            else
+            {
+                TootButton.IsEnabled = true;
+            }
+        }
+
+        private async void TootButton_Click(object sender, RoutedEventArgs e)
+        {
+            var mediaIds = new List<int>();
+            TootButton.IsEnabled = false;
+            Progress.Visibility = Visibility.Visible;
+            int count = 0;
+            Progress.Value = 0;
+            Progress.Foreground = new SolidColorBrush(Windows.UI.Colors.DeepSkyBlue);
+            Progress.Background = new SolidColorBrush(Windows.UI.Colors.DarkGray);
+            try
+            {
+                foreach (var item in LocalImageFiles)
+                {
+                    var media = await API.Apis.Media.UploadMedia(App.AppSetting.Accounts[App.AppSetting.SelectedAccountIndex].Instance.Uri, App.AppSetting.Accounts[App.AppSetting.SelectedAccountIndex].Token.AccessToken, item);
+                    mediaIds.Add(media.Id);
+                    count++;
+                    double progress = count / LocalImageFiles.Count;
+                    Progress.Value = progress;
+                }
+                await API.Apis.Status.PostStatus(App.AppSetting.Accounts[App.AppSetting.SelectedAccountIndex].Instance.Uri, App.AppSetting.Accounts[App.AppSetting.SelectedAccountIndex].Token.AccessToken, Status, null, mediaIds, false, "", "public");
+                this.Hide();
+            }
+            catch
+            {
+                TootButton.IsEnabled = true;
+                Progress.Foreground = new SolidColorBrush(Windows.UI.Colors.Red);
+                Progress.Background = new SolidColorBrush(Windows.UI.Colors.DarkRed);
             }
         }
     }

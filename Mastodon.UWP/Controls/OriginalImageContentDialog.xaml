@@ -1,0 +1,15 @@
+﻿<ContentDialog
+    x:Class="Mastodon.UWP.Controls.OriginalImageContentDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Mastodon.UWP.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    MaxHeight="720"
+    MaxWidth="1280">
+
+    <Grid Tapped="Grid_Tapped">
+        <Image VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Stretch="Uniform" Source="{x:Bind imageUrl}"/>
+    </Grid>
+</ContentDialog>

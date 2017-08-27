@@ -14,7 +14,7 @@
             <TextBlock Text="Send a TOOT" FontSize="22" />
             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE894;" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" FontSize="16" Tapped="FontIcon_Tapped"/>
         </RelativePanel>
-        <TextBox Name="TootTextBox" Width="400" Height="150" TextWrapping="Wrap" BorderThickness="0" PlaceholderText="Share the story you just fabricated..." Text="{x:Bind Status, Mode=TwoWay}"/>
+        <TextBox Name="TootTextBox" Width="400" Height="150" TextWrapping="Wrap" BorderThickness="0" PlaceholderText="Share the story you just fabricated..." Text="{x:Bind Status, Mode=TwoWay}" TextChanged="TootTextBox_TextChanged"/>
         <RelativePanel>
             <StackPanel Background="#393F4F" Orientation="Horizontal" HorizontalAlignment="Left">
                 <Button Background="Transparent" Height="36" BorderThickness="0" Click="Button_Click">
@@ -28,8 +28,8 @@
                 </Button>--> 
             </StackPanel>
             <StackPanel Orientation="Horizontal" RelativePanel.AlignRightWithPanel="True">
-                <TextBlock VerticalAlignment="Center" Text="500" Margin="0 0 10 0" />
-                <Button Background="#2588d0" Height="36" BorderThickness="0">
+                <TextBlock Name="RemainWords" VerticalAlignment="Center" Text="500" Margin="0 0 10 0" />
+                <Button Name="TootButton" Background="#2588d0" Height="36" BorderThickness="0" Click="TootButton_Click">
                     TOOT!
                 </Button>
             </StackPanel>
@@ -37,9 +37,13 @@
         <GridView Margin="0 10 0 0"  SelectionMode="None" ItemsSource="{x:Bind LocalImages}">
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="vm:LocalImagesViewModel">
-                    <Image Margin="0 0 5 0" Width="80" Height="80" Stretch="UniformToFill" Source="{x:Bind Image}"/>
+                    <Grid>
+                        <Image Margin="0" Width="95" Height="95" Stretch="UniformToFill" Source="{x:Bind Image}"/>
+                        <FontIcon Name="DeleteFontIcon" FontFamily="Segoe MDL2 Assets" Glyph="&#xE894;" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 10 10 0" Tapped="DeleteFontIcon_Tapped"/>
+                    </Grid>
                 </DataTemplate>
             </GridView.ItemTemplate>
         </GridView>
+        <ProgressBar Name="Progress" Maximum="1" Visibility="Collapsed" HorizontalAlignment="Stretch" />
     </StackPanel>
 </ContentDialog>

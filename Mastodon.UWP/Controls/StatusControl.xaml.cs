@@ -54,5 +54,13 @@ namespace Mastodon.UWP.Controls
                 //Bindings.Update();
             }
         }
+
+        private async void Image_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var index = ImagesGridView.Items.IndexOf((sender as Image).DataContext);
+            var contentDialog = new OriginalImageContentDialog();
+            contentDialog.DataContext = Status.Attachment[index].Url;
+            await contentDialog.ShowAsync();
+        }
     }
 }

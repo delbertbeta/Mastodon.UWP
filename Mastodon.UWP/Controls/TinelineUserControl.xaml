@@ -1,8 +1,8 @@
 ﻿<UserControl
-    x:Class="Mastodon.UWP.View.HomeView"
+    x:Class="Mastodon.UWP.Controls.TinelineUserControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Mastodon.UWP.View"
+    xmlns:local="using:Mastodon.UWP.Controls"
     xmlns:control="using:Mastodon.UWP.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"

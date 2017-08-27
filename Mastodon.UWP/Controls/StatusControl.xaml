@@ -28,10 +28,10 @@
                 <TextBlock Text="{x:Bind Status.CreateAt}" RelativePanel.AlignRightWithPanel="True" Foreground="#606984" />
             </RelativePanel>
             <TextBlock Margin="0 5 0 0" Name="StatueContentTextBlock" TextWrapping="WrapWholeWords" Text="{x:Bind Status.Content}" />
-            <GridView Margin="0 10 0 10" ItemsSource="{x:Bind Status.Attachment}" SelectionMode="None">
+            <GridView Name="ImagesGridView" Margin="0 10 0 10" ItemsSource="{x:Bind Status.Attachment}" SelectionMode="None">
                 <GridView.ItemTemplate>
                     <DataTemplate x:DataType="api:AttachmentModel">
-                        <Image Margin="5 5 5 5" Width="100" Height="100" Source="{x:Bind PreviewUrl}" Stretch="UniformToFill"/>
+                        <Image Margin="0" Width="100" Height="100" Source="{x:Bind PreviewUrl}" Stretch="UniformToFill" Tapped="Image_Tapped"/>
                     </DataTemplate>
                 </GridView.ItemTemplate>
             </GridView>

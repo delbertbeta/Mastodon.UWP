@@ -41,7 +41,7 @@ namespace Mastodon.UWP.View
 
         private void ContentPivot_Loaded(object sender, RoutedEventArgs e)
         {
-            HomeFrame.Content = new View.HomeView();
+            HomeFrame.Content = new Controls.TinelineUserControl();
         }
     }
 }

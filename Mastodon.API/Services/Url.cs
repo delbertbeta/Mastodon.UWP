@@ -21,5 +21,9 @@ namespace Mastodon.API.Services
         public const string Instance = prefix + "/instance";
 
         public const string TimelineHome = prefix + "/timelines/home";
+
+        public const string Media = prefix + "/media";
+
+        public const string Status = prefix + "/statuses";
     }
 }

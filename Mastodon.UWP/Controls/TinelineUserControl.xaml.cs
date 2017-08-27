@@ -17,13 +17,13 @@ using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace Mastodon.UWP.View
+namespace Mastodon.UWP.Controls
 {
-    public sealed partial class HomeView : UserControl
+    public sealed partial class TinelineUserControl : UserControl
     {
         public ObservableCollection<StatusModel> StatusList;
 
-        public HomeView()
+        public TinelineUserControl()
         {
             this.InitializeComponent();
             StatusList = new ObservableCollection<StatusModel>();

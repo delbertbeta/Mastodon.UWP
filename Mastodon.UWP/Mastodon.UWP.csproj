@@ -95,6 +95,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\OriginalImageContentDialog.xaml.cs">
+      <DependentUpon>OriginalImageContentDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SendStatusContentDialog.xaml.cs">
       <DependentUpon>SendStatusContentDialog.xaml</DependentUpon>
     </Compile>
@@ -117,8 +120,8 @@
     <Compile Include="ViewModel\LocalImagesViewModel.cs" />
     <Compile Include="ViewModel\SimpleProfit.cs" />
     <Compile Include="ViewModel\StatusViewModel.cs" />
-    <Compile Include="View\HomeView.xaml.cs">
-      <DependentUpon>HomeView.xaml</DependentUpon>
+    <Compile Include="Controls\TinelineUserControl.xaml.cs">
+      <DependentUpon>TinelineUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\StandByView.xaml.cs">
       <DependentUpon>StandByView.xaml</DependentUpon>
@@ -156,6 +159,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\OriginalImageContentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\SendStatusContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -177,7 +184,7 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
-    <Page Include="View\HomeView.xaml">
+    <Page Include="Controls\TinelineUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
