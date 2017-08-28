@@ -123,6 +123,9 @@
     <Compile Include="Controls\TinelineUserControl.xaml.cs">
       <DependentUpon>TinelineUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\AccountView.xaml.cs">
+      <DependentUpon>AccountView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\StandByView.xaml.cs">
       <DependentUpon>StandByView.xaml</DependentUpon>
     </Compile>
@@ -132,6 +135,7 @@
     <Compile Include="View\MasterView.xaml.cs">
       <DependentUpon>MasterView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\TimelineTypeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -185,6 +189,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="Controls\TinelineUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AccountView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

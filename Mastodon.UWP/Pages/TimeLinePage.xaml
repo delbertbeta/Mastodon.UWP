@@ -35,7 +35,7 @@
         <SplitView Grid.Column="0" Name="MenuSplitView" DisplayMode="Overlay" PaneBackground="#404657">
             <SplitView.Pane>
                 <RelativePanel HorizontalAlignment="Stretch">
-                    <RelativePanel RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignLeftWithPanel="True" Height="150">
+                    <RelativePanel Name="ProfileRelativePanel" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignLeftWithPanel="True" Height="150">
                         <RelativePanel.Background>
                             <ImageBrush ImageSource="{x:Bind profit.HeaderImage}" Stretch="UniformToFill" Opacity="0.2" />
                         </RelativePanel.Background>
@@ -47,6 +47,34 @@
                         <TextBlock Text="{x:Bind profit.Username}" RelativePanel.RightOf="RoundedFace" RelativePanel.AlignTopWith="RoundedFace" Margin="0 10 0 0" FontWeight="Bold" FontSize="22" />
                         <TextBlock Text="{x:Bind profit.Instance}" RelativePanel.RightOf="RoundedFace" RelativePanel.AlignBottomWith="RoundedFace" Margin="0 0 0 10" Foreground="#D8E0E7" />
                     </RelativePanel>
+                    <ListBox RelativePanel.Below="ProfileRelativePanel" Background="Transparent" SelectedIndex="0">
+                        <ListBoxItem>
+                            <StackPanel Orientation="Horizontal">
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE80F;" VerticalAlignment="Center" />
+                                <TextBlock Text="Home" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                            </StackPanel>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <StackPanel Orientation="Horizontal">
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE734;" VerticalAlignment="Center" />
+                                <TextBlock Text="Favorited" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                            </StackPanel>
+                        </ListBoxItem>
+                    </ListBox>
+                    <ListBox RelativePanel.AlignBottomWithPanel="True" Background="Transparent">
+                        <ListBoxItem>
+                            <StackPanel Orientation="Horizontal">
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE713;" VerticalAlignment="Center" />
+                                <TextBlock Text="Preferences" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                            </StackPanel>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <StackPanel Orientation="Horizontal">
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8C9;" VerticalAlignment="Center" />
+                                <TextBlock Text="About" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                            </StackPanel>
+                        </ListBoxItem>
+                    </ListBox>
                 </RelativePanel>
             </SplitView.Pane>
         </SplitView>

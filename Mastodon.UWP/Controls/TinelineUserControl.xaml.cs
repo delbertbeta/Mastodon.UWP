@@ -1,4 +1,5 @@
 ﻿using Mastodon.API.Models;
+using Mastodon.UWP.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,6 +22,8 @@ namespace Mastodon.UWP.Controls
 {
     public sealed partial class TinelineUserControl : UserControl
     {
+        private TimelineTypeViewModel TimelineType { get { return this.DataContext as TimelineTypeViewModel; } }
+
         public ObservableCollection<StatusModel> StatusList;
 
         public TinelineUserControl()
@@ -32,14 +35,33 @@ namespace Mastodon.UWP.Controls
         private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             var account = App.AppSetting.Accounts[App.AppSetting.SelectedAccountIndex];
-            var source = await API.Apis.Timeline.GetHomeTimelines(account.Instance.Uri, account.Token.AccessToken, null, null, 20);
+            List<StatusModel> source;
+            if (TimelineType.TimelineType == View.TimelineType.Home) 
+                source = await API.Apis.Timeline.GetHomeTimelines(account.Instance.Uri, account.Token.AccessToken, 20);
+            else if (TimelineType.TimelineType == View.TimelineType.Id)
+            {
+                source = await API.Apis.Timeline.GetTimelineById(account.Instance.Uri, account.Token.AccessToken, int.Parse(TimelineType.TimelineIdentifier), 20);
+            } else
+            {
+                source = new List<StatusModel>();
+            }
             Services.ListPushHelper.PushToList(source, ref StatusList, Services.ListPushHelper.PushMethod.Foot);
         }
 
         private async void FreshButton_Click(object sender, RoutedEventArgs e)
         {
             var account = App.AppSetting.Accounts[App.AppSetting.SelectedAccountIndex];
-            var source = await API.Apis.Timeline.GetHomeTimelines(account.Instance.Uri, account.Token.AccessToken, null, null, 20);
+            List<StatusModel> source;
+            if (TimelineType.TimelineType == View.TimelineType.Home)
+                source = await API.Apis.Timeline.GetHomeTimelines(account.Instance.Uri, account.Token.AccessToken, 20);
+            else if (TimelineType.TimelineType == View.TimelineType.Id)
+            {
+                source = await API.Apis.Timeline.GetTimelineById(account.Instance.Uri, account.Token.AccessToken, int.Parse(TimelineType.TimelineIdentifier), 20);
+            }
+            else
+            {
+                source = new List<StatusModel>();
+            }
             StatusList.Clear();
             Services.ListPushHelper.PushToList(source, ref StatusList, Services.ListPushHelper.PushMethod.Foot);
         }

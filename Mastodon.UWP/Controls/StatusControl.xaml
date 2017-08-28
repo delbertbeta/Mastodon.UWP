@@ -52,8 +52,8 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
                 <uwp:FontAwesome x:Name="ReplyIcon" FontSize="16" Icon="Reply" Foreground="#606984" Margin="0 0 15 0" Tapped="ReplyIcon_Tapped"/>
-                <uwp:FontAwesome x:Name="ReblogedIcon" FontSize="16" Icon="Retweet" Foreground="{x:Bind ReblogedForeground}" Margin="0 0 15 0" Tapped="ReblogedIcon_Tapped" />
-                <uwp:FontAwesome x:Name="FavoritedIcon" FontSize="16" Icon="Star" Foreground="{x:Bind FavoritedForeground}" Margin="0 0 15 0" Tapped="FavoritedIcon_Tapped"/>
+                <uwp:FontAwesome x:Name="ReblogedIcon" FontSize="16" Icon="Retweet" Foreground="{x:Bind Status.ReblogedForeground}" Margin="0 0 15 0" Tapped="ReblogedIcon_Tapped" />
+                <uwp:FontAwesome x:Name="FavoritedIcon" FontSize="16" Icon="Star" Foreground="{x:Bind Status.FavoritedForeground}" Margin="0 0 15 0" Tapped="FavoritedIcon_Tapped"/>
                 <uwp:FontAwesome FontSize="16" Icon="EllipsisH" Foreground="#606984" />
             </StackPanel>
         </StackPanel>

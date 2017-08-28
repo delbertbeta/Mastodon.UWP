@@ -20,33 +20,11 @@ namespace Mastodon.UWP.View
     /// <summary>
     /// 可用于自身或导航至 Frame 内部的空白页。
     /// </summary>
-    public sealed partial class MasterView : Page
+    public sealed partial class AccountView : Page
     {
-        
-        public MasterView()
+        public AccountView()
         {
             this.InitializeComponent();
-        }
-
-        private void ContentPivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            switch (ContentPivot.SelectedIndex)
-            {
-                case 0:
-                    
-                default:
-                    break;
-            }
-        }
-
-        private void ContentPivot_Loaded(object sender, RoutedEventArgs e)
-        {
-            var timeline = new Controls.TinelineUserControl();
-            timeline.DataContext = new TimelineTypeViewModel
-            {
-                TimelineType = TimelineType.Home
-            };
-            HomeFrame.Content = timeline;
         }
     }
 }
