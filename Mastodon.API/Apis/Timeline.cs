@@ -9,22 +9,22 @@ namespace Mastodon.API.Apis
 {
     public class Timeline
     {
-        static public async Task<List<StatusModel>> GetHomeTimelines(string domain, string accessToken, int limit = 20)
+        static public async Task<ModelWithLink<List<StatusModel>>> GetHomeTimelines(string domain, string accessToken, int limit = 20)
         {
             string param = "";
             param += "limit=" + limit.ToString();
-            return await Services.HttpManager.GetAsync<List<StatusModel>>($"{domain}{Services.Url.TimelineHome}", accessToken, null);
+            return await Services.HttpManager.GetWithLinkAsync<List<StatusModel>>($"{domain}{Services.Url.TimelineHome}", accessToken, null);
         }
 
-        static public async Task<List<StatusModel>> GetTimelineByUrl(string url, string accessToken)
+        static public async Task<ModelWithLink<List<StatusModel>>> GetTimelineByUrl(string url, string accessToken)
         {
-            return await Services.HttpManager.GetAsync<List<StatusModel>>(url, accessToken, null);
+            return await Services.HttpManager.GetWithLinkAsync<List<StatusModel>>(url, accessToken, null);
         }
 
-        static public async Task<List<StatusModel>> GetTimelineById(string domain, string accessToken, int id, int limit = 20)
+        static public async Task<ModelWithLink<List<StatusModel>>> GetTimelineById(string domain, string accessToken, int id, int limit = 20)
         {
             string param = "limit=" + limit.ToString();
-            return await Services.HttpManager.GetAsync<List<StatusModel>>($"{domain}{string.Format(Services.Url.GetTimelineById, id)}", accessToken, param);
+            return await Services.HttpManager.GetWithLinkAsync<List<StatusModel>>($"{domain}{string.Format(Services.Url.GetTimelineById, id)}", accessToken, param);
         }
     }
 }

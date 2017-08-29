@@ -125,6 +125,7 @@
     <Compile Include="Models\RelationshipModel.cs" />
     <Compile Include="Models\SendStatusModel.cs" />
     <Compile Include="Models\StatusModel.cs" />
+    <Compile Include="Models\ModelWithLink.cs" />
     <Compile Include="Models\TokenModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\HttpManager.cs" />

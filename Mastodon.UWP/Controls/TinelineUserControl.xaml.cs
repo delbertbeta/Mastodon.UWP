@@ -3,9 +3,11 @@ using Mastodon.UWP.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -26,6 +28,10 @@ namespace Mastodon.UWP.Controls
 
         public ObservableCollection<StatusModel> StatusList;
 
+        private string _nextUrl;
+
+        private string _prevUrl;
+
         public TinelineUserControl()
         {
             this.InitializeComponent();
@@ -34,36 +40,51 @@ namespace Mastodon.UWP.Controls
 
         private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            var account = App.AppSetting.Accounts[App.AppSetting.SelectedAccountIndex];
-            List<StatusModel> source;
-            if (TimelineType.TimelineType == View.TimelineType.Home) 
-                source = await API.Apis.Timeline.GetHomeTimelines(account.Instance.Uri, account.Token.AccessToken, 20);
-            else if (TimelineType.TimelineType == View.TimelineType.Id)
-            {
-                source = await API.Apis.Timeline.GetTimelineById(account.Instance.Uri, account.Token.AccessToken, int.Parse(TimelineType.TimelineIdentifier), 20);
-            } else
-            {
-                source = new List<StatusModel>();
-            }
+            List<StatusModel> source = await GetSource();
             Services.ListPushHelper.PushToList(source, ref StatusList, Services.ListPushHelper.PushMethod.Foot);
         }
 
         private async void FreshButton_Click(object sender, RoutedEventArgs e)
         {
+            if (!string.IsNullOrEmpty(_prevUrl))
+            {
+                TimelineScrollViewer.ChangeView(null, 0.0, null);
+                var account = App.AppSetting.Accounts[App.AppSetting.SelectedAccountIndex];
+                var result = await API.Apis.Timeline.GetTimelineByUrl(_prevUrl, account.Token.AccessToken);
+                _prevUrl = result.PrevUrl;
+                Services.ListPushHelper.PushToList(result.Target, ref StatusList, Services.ListPushHelper.PushMethod.Head);
+            }
+            else
+            {
+                Services.ListPushHelper.PushToList((await GetSource()), ref StatusList, Services.ListPushHelper.PushMethod.Head);
+            }
+        }
+
+        private async Task<List<StatusModel>> GetSource()
+        {
             var account = App.AppSetting.Accounts[App.AppSetting.SelectedAccountIndex];
             List<StatusModel> source;
             if (TimelineType.TimelineType == View.TimelineType.Home)
-                source = await API.Apis.Timeline.GetHomeTimelines(account.Instance.Uri, account.Token.AccessToken, 20);
+            {
+                var result = await API.Apis.Timeline.GetHomeTimelines(account.Instance.Uri, account.Token.AccessToken, 20);
+                source = result.Target;
+                _nextUrl = result.NextUrl;
+                _prevUrl = result.PrevUrl;
+            }
+
             else if (TimelineType.TimelineType == View.TimelineType.Id)
             {
-                source = await API.Apis.Timeline.GetTimelineById(account.Instance.Uri, account.Token.AccessToken, int.Parse(TimelineType.TimelineIdentifier), 20);
+                var result = await API.Apis.Timeline.GetTimelineById(account.Instance.Uri, account.Token.AccessToken, int.Parse(TimelineType.TimelineIdentifier), 20);
+                source = result.Target;
+                _nextUrl = result.NextUrl;
+                _prevUrl = result.PrevUrl;
+                FreshButton.Visibility = Visibility.Collapsed;
             }
             else
             {
                 source = new List<StatusModel>();
             }
-            StatusList.Clear();
-            Services.ListPushHelper.PushToList(source, ref StatusList, Services.ListPushHelper.PushMethod.Foot);
+            return source;
         }
 
         public delegate void NavigatingToAccountDelegate(AccountModel accountId);
@@ -76,16 +97,26 @@ namespace Mastodon.UWP.Controls
 
         private bool _isLoading = false;
 
-        private void TimelineScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        private async void TimelineScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
-            if (TimelineScrollViewer.VerticalOffset <= TimelineScrollViewer.ScrollableHeight - 100)
+            if (TimelineScrollViewer.VerticalOffset >= TimelineScrollViewer.ScrollableHeight - 50)
             {
-                if (_isLoading)
-                    return;
-                else
-                {
-                    _isLoading = true;
-                }
+                await UpdateTimeline();
+            }
+        }
+
+        public async Task UpdateTimeline()
+        {
+            if (_isLoading || string.IsNullOrEmpty(_nextUrl))
+                return;
+            else
+            {
+                var account = App.AppSetting.Accounts[App.AppSetting.SelectedAccountIndex];
+                _isLoading = true;
+                var result = await API.Apis.Timeline.GetTimelineByUrl(_nextUrl, account.Token.AccessToken);
+                _nextUrl = result.NextUrl;
+                Services.ListPushHelper.PushToList(result.Target, ref StatusList, Services.ListPushHelper.PushMethod.Foot);
+                _isLoading = false;
             }
         }
     }

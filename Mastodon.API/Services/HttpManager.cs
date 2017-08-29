@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Runtime.Serialization.Json;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Mastodon.API.Services
@@ -70,8 +71,62 @@ namespace Mastodon.API.Services
                     {
                         try
                         {
-                            var result = await res.Content.ReadAsStringAsync();
+                            var result = await res.Content.ReadAsStringAsync();   
                             return JsonConvert.DeserializeObject<TModel>(result);
+                        }
+                        catch (Exception e) when (e is JsonReaderException)
+                        {
+                            throw new Exception("Not a JSON format document.", e);
+                        }
+                    }
+                    else
+                    {
+                        try
+                        {
+                            throw new MastodonException("Illegal API request.", JsonConvert.DeserializeObject<ErrorModel>(await res.Content.ReadAsStringAsync()));
+                        }
+                        catch (Exception e)
+                        {
+                            throw new Exception("Network Error", e);
+                        }
+                    }
+                }
+            }
+        }
+
+        static public async Task<ModelWithLink<TModel>> GetWithLinkAsync<TModel>(string url, string token, string param)
+        {
+            using (var httpClient = new HttpClient())
+            {
+                if (!url.StartsWith("http"))
+                {
+                    url = "https://" + url;
+                }
+                if (!string.IsNullOrWhiteSpace(token))
+                {
+                    httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                }
+                using (var res = await httpClient.GetAsync(url + (string.IsNullOrWhiteSpace(param) ? "" : "?" + param)))
+                {
+                    if (res.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        try
+                        {
+                            var model = new ModelWithLink<TModel>();
+                            if(res.Headers.TryGetValues("link", out IEnumerable<string> values))
+                            {
+                                var links = values.FirstOrDefault().Split(',').Select(s => Regex.Match(s, ".*<(.*)>; rel=\"(.*)\"").Groups).ToList();
+                                foreach(var link in links)
+                                {
+                                    if (link[2].Value == "prev")
+                                        model.PrevUrl = link[1].Value;
+                                    if (link[2].Value == "next")
+                                        model.NextUrl = link[1].Value;
+                                }
+                            }
+                            var result = await res.Content.ReadAsStringAsync();
+                            model.Target = JsonConvert.DeserializeObject<TModel>(result);
+                            return model;
                         }
                         catch (Exception e) when (e is JsonReaderException)
                         {

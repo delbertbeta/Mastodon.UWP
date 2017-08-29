@@ -96,5 +96,13 @@ namespace Mastodon.UWP.View
                 ChangeToUnfollow();
             }
         }
+
+        private async void AccountSrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            if (AccountSrollViewer.VerticalOffset >= AccountSrollViewer.ScrollableHeight - 50)
+            {
+                await (ContainerFrame.Content as TinelineUserControl).UpdateTimeline();
+            }
+        }
     }
 }

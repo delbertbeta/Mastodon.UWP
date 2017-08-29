@@ -8,6 +8,7 @@
     xmlns:controls="using:Mastodon.UWP.Controls"
     mc:Ignorable="d">
 
+    <ScrollViewer Name="AccountSrollViewer" ViewChanged="AccountSrollViewer_ViewChanged">
     <Grid Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -61,4 +62,5 @@
         </StackPanel>
         <Frame Grid.Row="1" Name="ContainerFrame" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
     </Grid>
+    </ScrollViewer>
 </Page>
