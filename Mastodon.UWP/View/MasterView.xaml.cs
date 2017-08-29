@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mastodon.API.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -39,12 +40,19 @@ namespace Mastodon.UWP.View
             }
         }
 
+        public delegate void NavigatingToAccountDelegate(AccountModel accountId);
+        public event NavigatingToAccountDelegate NavigatingToAccount;
+
         private void ContentPivot_Loaded(object sender, RoutedEventArgs e)
         {
             var timeline = new Controls.TinelineUserControl();
             timeline.DataContext = new TimelineTypeViewModel
             {
                 TimelineType = TimelineType.Home
+            };
+            timeline.NavigatingToAccount += (account) =>
+            {
+                NavigatingToAccount?.Invoke(account);
             };
             HomeFrame.Content = timeline;
         }

@@ -35,5 +35,11 @@ namespace Mastodon.API.Services
         public const string UnFavouriting = prefix + "/statuses/{0}/unfavourite";
 
         public const string GetTimelineById = prefix + "/accounts/{0}/statuses";
+
+        public const string Relationships = prefix + "/accounts/relationships";
+
+        public const string Follow = prefix + "/accounts/{0}/follow";
+
+        public const string UnFollow = prefix + "/accounts/{0}/unfollow";
     }
 }

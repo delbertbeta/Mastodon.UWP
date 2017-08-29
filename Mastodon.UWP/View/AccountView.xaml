@@ -11,55 +11,54 @@
     <Grid Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
-            <RowDefinition Height="80" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <StackPanel HorizontalAlignment="Stretch">
             <StackPanel.Background>
-                <SolidColorBrush Color="Transparent" />
+                <ImageBrush Stretch="UniformToFill" ImageSource="{x:Bind Account.HeaderImage}" Opacity="0.2" />
             </StackPanel.Background>
             <Rectangle Width="100" Height="100" RadiusX="10" RadiusY="10" Margin="0 40 0 0" HorizontalAlignment="Center">
                 <Rectangle.Fill>
-                    <SolidColorBrush Color="White" />
+                    <ImageBrush Stretch="UniformToFill" ImageSource="{x:Bind Account.FaceImage}" />
                 </Rectangle.Fill>
             </Rectangle>
-            <TextBlock Margin="0 10 0 0" Text="delbertbeta" HorizontalAlignment="Center" FontWeight="Bold" FontSize="22" />
-            <TextBlock Text="@delbertbeta" HorizontalAlignment="Center" Foreground="#2B88CC" />
-            <TextBlock Margin="0 10 0 0" Text="No bio." HorizontalAlignment="Center" Foreground="#D9E1E8" />
-            <Button Margin="0 10 0 40" Content="Unfollow" HorizontalAlignment="Center" />
+            <TextBlock Margin="0 10 0 0" Text="{x:Bind Account.Username}" HorizontalAlignment="Center" FontWeight="Bold" FontSize="22" />
+            <TextBlock Text="{x:Bind Account.Acct}" HorizontalAlignment="Center" Foreground="#2B88CC" />
+            <TextBlock Margin="0 10 0 0" Text="{x:Bind Account.Note}" HorizontalAlignment="Center" Foreground="#D9E1E8" />
+            <Button Name="FollowButton" Margin="0 10 0 40" Content="Follow" HorizontalAlignment="Center" Click="FollowButton_Click" />
+            <Grid Height="80" Background="#aa191b22">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="0" BorderBrush="#393f4f" BorderThickness="0 0 1 0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <StackPanel Margin="10 0 0 0" VerticalAlignment="Center">
+                        <TextBlock Text="POSTS" Foreground="#97A9C3" FontSize="14" />
+                        <TextBlock Text="{x:Bind Account.Posts}" FontSize="18" FontWeight="Bold" />
+                    </StackPanel>
+                </Border>
+                <Border Grid.Column="1" BorderBrush="#393f4f" BorderThickness="0 0 1 0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <StackPanel Margin="10 0 0 0" VerticalAlignment="Center">
+                        <TextBlock Text="MEDIA" Foreground="#97A9C3" FontSize="14" />
+                        <TextBlock Text="{x:Bind Account.Media}" FontSize="18" FontWeight="Bold" />
+                    </StackPanel>
+                </Border>
+                <Border Grid.Column="2" BorderBrush="#393f4f" BorderThickness="0 0 1 0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <StackPanel Margin="10 0 0 0" VerticalAlignment="Center">
+                        <TextBlock Text="FOLLOWS" Foreground="#97A9C3" FontSize="14" />
+                        <TextBlock Text="{x:Bind Account.Follows}" FontSize="18" FontWeight="Bold" />
+                    </StackPanel>
+                </Border>
+                <Border Grid.Column="3" BorderBrush="#393f4f" BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <StackPanel Margin="10 0 0 0" VerticalAlignment="Center">
+                        <TextBlock Text="FOLLOWERS" Foreground="#97A9C3" FontSize="14" />
+                        <TextBlock Text="{x:Bind Account.Followers}" FontSize="18" FontWeight="Bold" />
+                    </StackPanel>
+                </Border>
+            </Grid>
         </StackPanel>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-            </Grid.ColumnDefinitions>
-            <Border Grid.Column="0" BorderBrush="#393f4f" BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <StackPanel Margin="10 0 0 0" VerticalAlignment="Center">
-                    <TextBlock Text="POSTS" Foreground="#97A9C3" FontSize="14" />
-                    <TextBlock Text="16" FontSize="18" FontWeight="Bold" />
-                </StackPanel>
-            </Border>
-            <Border Grid.Column="1" BorderBrush="#393f4f" BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <StackPanel Margin="10 0 0 0" VerticalAlignment="Center">
-                    <TextBlock Text="MEIDA" Foreground="#97A9C3" FontSize="14" />
-                    <TextBlock Text="0" FontSize="18" FontWeight="Bold" />
-                </StackPanel>
-            </Border>
-            <Border Grid.Column="2" BorderBrush="#393f4f" BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <StackPanel Margin="10 0 0 0" VerticalAlignment="Center">
-                    <TextBlock Text="FOLLOWS" Foreground="#97A9C3" FontSize="14" />
-                    <TextBlock Text="0" FontSize="18" FontWeight="Bold" />
-                </StackPanel>
-            </Border>
-            <Border Grid.Column="3" BorderBrush="#393f4f" BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <StackPanel Margin="10 0 0 0" VerticalAlignment="Center">
-                    <TextBlock Text="FOLLOWERS" Foreground="#97A9C3" FontSize="14" />
-                    <TextBlock Text="1" FontSize="18" FontWeight="Bold" />
-                </StackPanel>
-            </Border>
-        </Grid>
-        <Frame Name="TimelineFrame" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+        <Frame Grid.Row="1" Name="ContainerFrame" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
     </Grid>
 </Page>

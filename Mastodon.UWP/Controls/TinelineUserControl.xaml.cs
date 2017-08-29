@@ -65,5 +65,28 @@ namespace Mastodon.UWP.Controls
             StatusList.Clear();
             Services.ListPushHelper.PushToList(source, ref StatusList, Services.ListPushHelper.PushMethod.Foot);
         }
+
+        public delegate void NavigatingToAccountDelegate(AccountModel accountId);
+        public event NavigatingToAccountDelegate NavigatingToAccount;
+
+        private void StatusControl_FaceImageTouched(AccountModel account)
+        {
+            NavigatingToAccount?.Invoke(account);
+        }
+
+        private bool _isLoading = false;
+
+        private void TimelineScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            if (TimelineScrollViewer.VerticalOffset <= TimelineScrollViewer.ScrollableHeight - 100)
+            {
+                if (_isLoading)
+                    return;
+                else
+                {
+                    _isLoading = true;
+                }
+            }
+        }
     }
 }

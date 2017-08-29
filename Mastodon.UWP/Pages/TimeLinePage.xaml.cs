@@ -1,4 +1,5 @@
-﻿using Mastodon.UWP.Services;
+﻿using Mastodon.API.Models;
+using Mastodon.UWP.Services;
 using Mastodon.UWP.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Core;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
@@ -43,7 +45,31 @@ namespace Mastodon.UWP.Pages
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             MasterFrame.Navigate(typeof(View.MasterView));
+            (MasterFrame.Content as View.MasterView).NavigatingToAccount += TimeLinePage_NavigatingToAccount;
             DetailFrame.Navigate(typeof(View.StandByView));
+            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += BackRequested;
+            DetailFrame.Navigated += DetailFrame_Navigated;
+        }
+
+        private void DetailFrame_Navigated(object sender, NavigationEventArgs e)
+        {
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = DetailFrame.CanGoBack ? AppViewBackButtonVisibility.Visible : Windows.UI.Core.AppViewBackButtonVisibility.Collapsed;
+        }
+
+        private void BackRequested(object sender, BackRequestedEventArgs e)
+        {
+            if (DetailFrame == null)
+                return;
+            if (DetailFrame.CanGoBack && e.Handled == false)
+            {
+                e.Handled = true;
+                DetailFrame.GoBack();
+            }
+        }
+
+        private void TimeLinePage_NavigatingToAccount(AccountModel account)
+        {
+            DetailFrame.Navigate(typeof(View.AccountView), account);
         }
 
         private void FontIcon_Tapped(object sender, TappedRoutedEventArgs e)

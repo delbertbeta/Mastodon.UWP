@@ -27,10 +27,22 @@
                     <uwp:FontAwesome Icon="Pencil" />
                 </Button>
             </RelativePanel>
-            <Frame Name="MasterFrame" Grid.Row="1" VerticalAlignment="Stretch" />
+            <Frame Name="MasterFrame" Grid.Row="1" VerticalAlignment="Stretch">
+                <Frame.ContentTransitions>
+                    <TransitionCollection>
+                        <NavigationThemeTransition />
+                    </TransitionCollection>
+                </Frame.ContentTransitions>
+            </Frame>
         </Grid>
 
-        <Frame Name="DetailFrame" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        <Frame Name="DetailFrame" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Frame.ContentTransitions>
+                <TransitionCollection>
+                    <NavigationThemeTransition />
+                </TransitionCollection>
+            </Frame.ContentTransitions>
+        </Frame>
 
         <SplitView Grid.Column="0" Name="MenuSplitView" DisplayMode="Overlay" PaneBackground="#404657">
             <SplitView.Pane>

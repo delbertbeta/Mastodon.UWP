@@ -72,7 +72,6 @@ namespace Mastodon.UWP.ViewModel
             }
         }
         public List<API.Models.AttachmentModel> Attachment { get; set; }
-        public StatusViewModel ReplyStatus { get; set; }
 
         public bool Rebloged { get; set; }
         public bool Favorited { get; set; }

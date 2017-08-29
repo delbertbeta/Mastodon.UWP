@@ -45,6 +45,14 @@ namespace Mastodon.UWP
         {
             Frame rootFrame = Window.Current.Content as Frame;
 
+            // Change the color of the titlebar.
+            var titleBar = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().TitleBar;
+            titleBar.BackgroundColor = Windows.UI.Color.FromArgb(255, 25, 27, 34);
+            titleBar.ForegroundColor = Windows.UI.Colors.White;
+            titleBar.ButtonHoverBackgroundColor = Windows.UI.Color.FromArgb(255, 73, 160, 222);
+            titleBar.ButtonBackgroundColor = Windows.UI.Color.FromArgb(255, 25, 27, 34);
+            titleBar.ButtonForegroundColor = Windows.UI.Colors.White;
+
             // 不要在窗口已包含内容时重复应用程序初始化，
             // 只需确保窗口处于活动状态
             if (rootFrame == null)
