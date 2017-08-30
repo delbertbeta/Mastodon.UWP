@@ -41,5 +41,9 @@ namespace Mastodon.API.Services
         public const string Follow = prefix + "/accounts/{0}/follow";
 
         public const string UnFollow = prefix + "/accounts/{0}/unfollow";
+
+        public const string Context = prefix + "/statuses/{0}/context";
+
+        public const string Notifications = prefix + "/notifications";
     }
 }

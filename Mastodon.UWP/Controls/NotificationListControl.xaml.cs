@@ -1,9 +1,7 @@
 ﻿using Mastodon.API.Models;
-using Mastodon.UWP.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -22,26 +20,23 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Mastodon.UWP.Controls
 {
-    public sealed partial class TinelineUserControl : UserControl
+    public sealed partial class NotificationListControl : UserControl
     {
-        private TimelineTypeViewModel TimelineType { get { return this.DataContext as TimelineTypeViewModel; } }
+        public NotificationListControl()
+        {
+            this.InitializeComponent();
+        }
 
-        public ObservableCollection<StatusModel> StatusList;
+        public ObservableCollection<NotificationModel> Notifications;
 
         private string _nextUrl;
 
         private string _prevUrl;
 
-        public TinelineUserControl()
-        {
-            this.InitializeComponent();
-            StatusList = new ObservableCollection<StatusModel>();
-        }
-
         private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            List<StatusModel> source = await GetSource();
-            Services.ListPushHelper.PushToList(source, ref StatusList, Services.ListPushHelper.PushMethod.Foot);
+            List<NotificationModel> source = await GetSource();
+            Services.ListPushHelper.PushToList(source, ref Notifications, Services.ListPushHelper.PushMethod.Foot);
         }
 
         private async void FreshButton_Click(object sender, RoutedEventArgs e)
@@ -50,45 +45,24 @@ namespace Mastodon.UWP.Controls
             {
                 TimelineScrollViewer.ChangeView(null, 0.0, null);
                 var account = App.AppSetting.Accounts[App.AppSetting.SelectedAccountIndex];
-                var result = await API.Apis.Timeline.GetTimelineByUrl(_prevUrl, account.Token.AccessToken);
+                var result = await API.Apis.Notification.GetNotificationsByUrl(_prevUrl, account.Token.AccessToken);
                 _prevUrl = result.PrevUrl;
-                Services.ListPushHelper.PushToList(result.Target, ref StatusList, Services.ListPushHelper.PushMethod.Head);
+                Services.ListPushHelper.PushToList(result.Target, ref Notifications, Services.ListPushHelper.PushMethod.Head);
             }
             else
             {
-                Services.ListPushHelper.PushToList((await GetSource()), ref StatusList, Services.ListPushHelper.PushMethod.Head);
+                Services.ListPushHelper.PushToList((await GetSource()), ref Notifications, Services.ListPushHelper.PushMethod.Head);
             }
         }
 
-        private async Task<List<StatusModel>> GetSource()
+        private async Task<List<NotificationModel>> GetSource()
         {
             var account = App.AppSetting.Accounts[App.AppSetting.SelectedAccountIndex];
-            List<StatusModel> source;
-            if (TimelineType.TimelineType == View.TimelineType.Home)
-            {
-                var result = await API.Apis.Timeline.GetHomeTimelines(account.Instance.Uri, account.Token.AccessToken, 20);
-                source = result.Target;
-                _nextUrl = result.NextUrl;
-                _prevUrl = result.PrevUrl;
-            }
-
-            else if (TimelineType.TimelineType == View.TimelineType.Id)
-            {
-                var result = await API.Apis.Timeline.GetTimelineById(account.Instance.Uri, account.Token.AccessToken, int.Parse(TimelineType.TimelineIdentifier), 20);
-                source = result.Target;
-                _nextUrl = result.NextUrl;
-                _prevUrl = result.PrevUrl;
-                FreshButton.Visibility = Visibility.Collapsed;
-            }
-            else if (TimelineType.TimelineType == View.TimelineType.DataContext)
-            {
-                FreshButton.Visibility = Visibility.Collapsed;
-                source = TimelineType.Source;
-            }
-            else
-            {
-                source = new List<StatusModel>();
-            }
+            List<NotificationModel> source;
+            var result = await API.Apis.Notification.GetNotification(account.Instance.Uri, account.Token.AccessToken);
+            source = result.Target;
+            _nextUrl = result.NextUrl;
+            _prevUrl = result.PrevUrl;
             return source;
         }
 
@@ -121,9 +95,9 @@ namespace Mastodon.UWP.Controls
             {
                 var account = App.AppSetting.Accounts[App.AppSetting.SelectedAccountIndex];
                 _isLoading = true;
-                var result = await API.Apis.Timeline.GetTimelineByUrl(_nextUrl, account.Token.AccessToken);
+                var result = await API.Apis.Notification.GetNotificationsByUrl(_nextUrl, account.Token.AccessToken);
                 _nextUrl = result.NextUrl;
-                Services.ListPushHelper.PushToList(result.Target, ref StatusList, Services.ListPushHelper.PushMethod.Foot);
+                Services.ListPushHelper.PushToList(result.Target, ref Notifications, Services.ListPushHelper.PushMethod.Foot);
                 _isLoading = false;
             }
         }
@@ -132,5 +106,6 @@ namespace Mastodon.UWP.Controls
         {
             NavigateToStatusDetail?.Invoke(status);
         }
+
     }
 }

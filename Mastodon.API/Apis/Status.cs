@@ -25,6 +25,11 @@ namespace Mastodon.API.Apis
             return await HttpManager.PostJsonAsync<StatusModel, SendStatusModel>($"{domain}{Url.Status}", accessToken, target);
         }
 
+        public static async Task<ContextModel> GetContext(string domain, string accessToken, int id)
+        {
+            return await HttpManager.GetAsync<ContextModel>($"{domain}{string.Format(Url.Context, id.ToString())}", accessToken, null);
+        }
+
         public static async Task<StatusModel> ReblogStatus(string domain, string accessToken, int id)
         {
             return await HttpManager.PostAsync<StatusModel>($"{domain}{string.Format(Url.Reblog, id)}", accessToken, null);

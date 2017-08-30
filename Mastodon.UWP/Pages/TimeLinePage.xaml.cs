@@ -56,6 +56,11 @@ namespace Mastodon.UWP.Pages
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = DetailFrame.CanGoBack ? AppViewBackButtonVisibility.Visible : Windows.UI.Core.AppViewBackButtonVisibility.Collapsed;
         }
 
+        public void DetailViewNavigateTo(Type frame, object param)
+        {
+            DetailFrame.Navigate(frame, param);
+        }
+
         private void BackRequested(object sender, BackRequestedEventArgs e)
         {
             if (DetailFrame == null)

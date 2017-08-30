@@ -1,4 +1,5 @@
 ﻿using Mastodon.API.Models;
+using Mastodon.UWP.Pages;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -53,6 +54,10 @@ namespace Mastodon.UWP.View
             timeline.NavigatingToAccount += (account) =>
             {
                 NavigatingToAccount?.Invoke(account);
+            };
+            timeline.NavigateToStatusDetail += (status) =>
+            {
+                ((Window.Current.Content as Frame).Content as TimeLinePage).DetailViewNavigateTo(typeof(StatusDetailView), status);
             };
             HomeFrame.Content = timeline;
         }

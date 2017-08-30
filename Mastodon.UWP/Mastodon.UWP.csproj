@@ -95,6 +95,15 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NotificationListControl.xaml.cs">
+      <DependentUpon>NotificationListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Notification\BaseControl.xaml.cs">
+      <DependentUpon>BaseControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Notification\StatusNotificationControl.xaml.cs">
+      <DependentUpon>StatusNotificationControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\OriginalImageContentDialog.xaml.cs">
       <DependentUpon>OriginalImageContentDialog.xaml</DependentUpon>
     </Compile>
@@ -164,6 +173,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\NotificationListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Notification\BaseControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Notification\StatusNotificationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\OriginalImageContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

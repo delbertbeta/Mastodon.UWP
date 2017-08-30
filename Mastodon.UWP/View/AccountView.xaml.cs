@@ -1,5 +1,6 @@
 ﻿using Mastodon.API.Models;
 using Mastodon.UWP.Controls;
+using Mastodon.UWP.Pages;
 using Mastodon.UWP.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -64,7 +65,13 @@ namespace Mastodon.UWP.View
                 TimelineType = TimelineType.Id,
                 TimelineIdentifier = Account.Id.ToString()
             };
+            timeline.NavigateToStatusDetail += Timeline_NavigateToStatusDetail;
             ContainerFrame.Content = timeline;
+        }
+
+        private void Timeline_NavigateToStatusDetail(StatusModel status)
+        {
+            ((Window.Current.Content as Frame).Content as TimeLinePage).DetailViewNavigateTo(typeof(StatusDetailView), status);
         }
 
         private void ChangeToUnfollow()

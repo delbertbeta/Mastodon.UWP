@@ -25,6 +25,20 @@ namespace Mastodon.UWP.Controls
     {
         public StatusViewModel Status { get; set; }
 
+        private string _boostedUsername;
+        public string BoostedUsername
+        {
+            get
+            {
+                return _boostedUsername + " boosted";
+            }
+            set
+            {
+                _boostedUsername = value;
+
+            }
+        }
+
         public StatusControl()
         {
             this.InitializeComponent();
@@ -51,6 +65,7 @@ namespace Mastodon.UWP.Controls
                         Rebloged = statusModel.Reblogged,
                         Favorited = statusModel.Favourited
                     };
+                    BoostedUsername = statusModel.Account.Username;
                     BoostedStackPanel.Visibility = Visibility.Visible;
                 }
                 else
@@ -104,6 +119,7 @@ namespace Mastodon.UWP.Controls
 
         private async void ReplyIcon_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            e.Handled = true;
             var contentDialog = new SendStatusContentDialog();
             contentDialog.DataContext = this.Status;
             await contentDialog.ShowAsync();
@@ -163,11 +179,22 @@ namespace Mastodon.UWP.Controls
                 FaceImageTouched?.Invoke(statusModel.Reblog.Account);
             else
                 FaceImageTouched?.Invoke(statusModel.Account);
+            e.Handled = true;
         }
 
         private void BoostName_Tapped(object sender, TappedRoutedEventArgs e)
         {
             FaceImageTouched?.Invoke((DataContext as StatusModel).Reblog.Account);
+            e.Handled = true;
+        }
+
+        public delegate void NavigateToStatusDetailDelegate(StatusModel status);
+        public event NavigateToStatusDetailDelegate NavigateToStatusDetail;
+
+        private void Grid_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            NavigateToStatusDetail?.Invoke(this.DataContext as StatusModel);
+            e.Handled = true;
         }
     }
 }

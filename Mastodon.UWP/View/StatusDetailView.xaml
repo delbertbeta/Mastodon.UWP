@@ -5,7 +5,16 @@
     xmlns:local="using:Mastodon.UWP.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Mastodon.UWP.Controls"
     xmlns:fa="using:FontAwesome.UWP"
     mc:Ignorable="d">
-
+    <ScrollViewer>
+        <StackPanel>
+            <Frame Name="AncestorsFrame" HorizontalAlignment="Stretch" />
+            <StackPanel Background="#313543">
+                <controls:StatusControl HorizontalAlignment="Stretch" DataContext="{x:Bind BaseStatus}" />
+            </StackPanel>
+            <Frame Name="DescendantsFrame" HorizontalAlignment="Stretch" />
+        </StackPanel>
+    </ScrollViewer>
 </Page>

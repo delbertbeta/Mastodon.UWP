@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mastodon.API.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,12 +11,14 @@ namespace Mastodon.UWP.View
     {
         Home,
         Id,
-        Tag
+        Tag,
+        DataContext
     }
 
     public class TimelineTypeViewModel
     {
         public TimelineType TimelineType { get; set; }
         public string TimelineIdentifier { get; set; }
+        public List<StatusModel> Source { get; set; }
     }
 }

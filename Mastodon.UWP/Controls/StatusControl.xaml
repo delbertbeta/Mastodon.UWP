@@ -11,7 +11,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid Background="#282C37" Height="auto">
+    <Grid Height="auto" Tapped="Grid_Tapped">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
@@ -22,7 +22,7 @@
         </Grid.RowDefinitions>
         <StackPanel Name="BoostedStackPanel" Grid.Column="1" Orientation="Horizontal" Margin="-22 10 0 10" Visibility="Collapsed">
             <uwp:FontAwesome FontSize="16" Icon="Retweet" Foreground="#2B90D9" Margin="0 0 15 0" VerticalAlignment="Center" />
-            <TextBlock Text="delbertbeta boosted" Foreground="#606984" VerticalAlignment="Center" Tapped="BoostName_Tapped"/>
+            <TextBlock Text="{x:Bind BoostedUsername}" Foreground="#606984" VerticalAlignment="Center" Tapped="BoostName_Tapped"/>
         </StackPanel>
         <Rectangle Grid.Row="1" Name="RoundedFace" Margin="10 10 5 0" Width="45" Height="45" RadiusX="4" RadiusY="4" VerticalAlignment="Top" Tapped="RoundedFace_Tapped">
             <Rectangle.Fill>

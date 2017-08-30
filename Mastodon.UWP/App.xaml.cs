@@ -89,6 +89,7 @@ namespace Mastodon.UWP
                     }
                     else
                     {
+                        
                         rootFrame.Navigate(typeof(Pages.TimeLinePage), e.Arguments);
                     }
                 }
