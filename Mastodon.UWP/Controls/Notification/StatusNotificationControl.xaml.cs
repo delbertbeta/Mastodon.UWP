@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mastodon.API.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -19,9 +20,33 @@ namespace Mastodon.UWP.Controls.Notification
 {
     public sealed partial class StatusNotificationControl : UserControl
     {
+        private NotificationModel Notification
+        {
+            get
+            {
+                return this.DataContext as NotificationModel;
+            }
+        }
+
         public StatusNotificationControl()
         {
             this.InitializeComponent();
+            if (Notification.Type == "mention")
+                VisualStateManager.GoToState(this, "Metioned", false);
+            if (Notification.Type == "reblog")
+                VisualStateManager.GoToState(this, "Rebloged", false);
+            if (Notification.Type == "favourite")
+                VisualStateManager.GoToState(this, "Favourited", false);
+        }
+
+        private void StatusControl_FaceImageTouched(AccountModel account)
+        {
+            
+        }
+
+        private void StatusControl_NavigateToStatusDetail(StatusModel status)
+        {
+
         }
     }
 }
