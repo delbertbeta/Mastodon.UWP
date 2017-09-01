@@ -10,7 +10,7 @@
     <RelativePanel Background="Transparent">
         <StackPanel Orientation="Vertical" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
             <TextBlock FontWeight="Bold" FontSize="36"><Run>Mastodon</Run><Run Foreground="DeepSkyBlue" Text=" UWP" /></TextBlock>
-            <TextBlock FontWeight="Light" FontSize="22"><Hyperlink NavigateUri="https://delbertbeta.cc">@delbertbeta</Hyperlink></TextBlock>
+            <TextBlock FontWeight="Light" FontSize="22"><Hyperlink NavigateUri="https://github.com/delbertbeta/Mastodon.UWP">@delbertbeta</Hyperlink></TextBlock>
         </StackPanel>
         <Image Source="ms-appx:///Assets/Images/Elephant.png" Width="350" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignRightWithPanel="True" />
     </RelativePanel>
