@@ -109,11 +109,13 @@
     <Compile Include="Apis\Account.cs" />
     <Compile Include="Apis\Apps.cs" />
     <Compile Include="Apis\Base.cs" />
+    <Compile Include="Apis\Favorites.cs" />
     <Compile Include="Apis\Instance.cs" />
     <Compile Include="Apis\Media.cs" />
     <Compile Include="Apis\Notification.cs" />
     <Compile Include="Apis\Oauth.cs" />
     <Compile Include="Apis\Relationships.cs" />
+    <Compile Include="Apis\Search.cs" />
     <Compile Include="Apis\Status.cs" />
     <Compile Include="Apis\Timeline.cs" />
     <Compile Include="Models\AccountModel.cs" />
@@ -126,6 +128,7 @@
     <Compile Include="Models\NotificationModel.cs" />
     <Compile Include="Models\OauthModel.cs" />
     <Compile Include="Models\RelationshipModel.cs" />
+    <Compile Include="Models\ResultsModel.cs" />
     <Compile Include="Models\SendStatusModel.cs" />
     <Compile Include="Models\StatusModel.cs" />
     <Compile Include="Models\ModelWithLink.cs" />

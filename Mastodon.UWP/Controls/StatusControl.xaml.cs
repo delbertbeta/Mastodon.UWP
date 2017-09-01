@@ -49,63 +49,67 @@ namespace Mastodon.UWP.Controls
         {
             if (DataContext != null)
             {
-                var statusModel = DataContext as StatusModel;
+                if (DataContext is StatusModel)
+                {
+                    var statusModel = DataContext as StatusModel;
 
-                if (statusModel.Reblog != null)
-                {
-                    Status = new StatusViewModel
+                    if (statusModel.Reblog != null)
                     {
-                        Username = statusModel.Reblog.Account.Username,
-                        Acct = statusModel.Reblog.Account.Acct,
-                        CreateAt = statusModel.Reblog.CreatedAt,
-                        FaceImage = statusModel.Reblog.Account.AvatarStatic,
-                        Content = statusModel.Reblog.Content,
-                        Attachment = statusModel.Reblog.MediaAttachments,
-                        Id = statusModel.Reblog.Id,
-                        Rebloged = statusModel.Reblogged,
-                        Favorited = statusModel.Favourited
-                    };
-                    BoostedUsername = statusModel.Account.Username;
-                    BoostedStackPanel.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    Status = new StatusViewModel
+                        Status = new StatusViewModel
+                        {
+                            Username = statusModel.Reblog.Account.Username,
+                            Acct = statusModel.Reblog.Account.Acct,
+                            CreateAt = statusModel.Reblog.CreatedAt,
+                            FaceImage = statusModel.Reblog.Account.AvatarStatic,
+                            Content = statusModel.Reblog.Content,
+                            Attachment = statusModel.Reblog.MediaAttachments,
+                            Id = statusModel.Reblog.Id,
+                            Rebloged = statusModel.Reblogged,
+                            Favorited = statusModel.Favourited
+                        };
+                        BoostedUsername = statusModel.Account.Username;
+                        BoostedStackPanel.Visibility = Visibility.Visible;
+                    }
+                    else
                     {
-                        Username = statusModel.Account.Username,
-                        Acct = statusModel.Account.Acct,
-                        CreateAt = statusModel.CreatedAt,
-                        FaceImage = statusModel.Account.AvatarStatic,
-                        Content = statusModel.Content,
-                        Attachment = statusModel.MediaAttachments,
-                        Id = statusModel.Id,
-                        Rebloged = statusModel.Reblogged,
-                        Favorited = statusModel.Favourited
-                    };
+                        Status = new StatusViewModel
+                        {
+                            Username = statusModel.Account.Username,
+                            Acct = statusModel.Account.Acct,
+                            CreateAt = statusModel.CreatedAt,
+                            FaceImage = statusModel.Account.AvatarStatic,
+                            Content = statusModel.Content,
+                            Attachment = statusModel.MediaAttachments,
+                            Id = statusModel.Id,
+                            Rebloged = statusModel.Reblogged,
+                            Favorited = statusModel.Favourited
+                        };
+                    }
+                    if (statusModel.Reblogged == true)
+                    {
+                        Status.ReblogedForeground = "#2B90D9";
+                    }
+                    else
+                    {
+                        Status.ReblogedForeground = "#606984";
+                    }
+                    if (statusModel.Favourited == true)
+                    {
+                        Status.FavoritedForeground = "#CA8F04";
+                    }
+                    else
+                    {
+                        Status.FavoritedForeground = "#606984";
+                    }
+                    Bindings.Update();
+                    //var faceFile = await WebResourceManager.GetWebResource(statusModel.Account.AvatarStatic, ResourceType.Face);
+                    //using (var stream = await faceFile.OpenAsync(Windows.Storage.FileAccessMode.Read, Windows.Storage.StorageOpenOptions.AllowOnlyReaders))
+                    //{
+                    //    Status.FaceImage.SetSource(stream);
+                    //}
+                    //Bindings.Update();
+
                 }
-                if (statusModel.Reblogged == true)
-                {
-                    Status.ReblogedForeground = "#2B90D9";
-                }
-                else
-                {
-                    Status.ReblogedForeground = "#606984";
-                }
-                if (statusModel.Favourited == true)
-                {
-                    Status.FavoritedForeground = "#CA8F04";
-                }
-                else
-                {
-                    Status.FavoritedForeground = "#606984";
-                }
-                Bindings.Update();
-                //var faceFile = await WebResourceManager.GetWebResource(statusModel.Account.AvatarStatic, ResourceType.Face);
-                //using (var stream = await faceFile.OpenAsync(Windows.Storage.FileAccessMode.Read, Windows.Storage.StorageOpenOptions.AllowOnlyReaders))
-                //{
-                //    Status.FaceImage.SetSource(stream);
-                //}
-                //Bindings.Update();
             }
         }
 
@@ -115,6 +119,7 @@ namespace Mastodon.UWP.Controls
             var contentDialog = new OriginalImageContentDialog();
             contentDialog.DataContext = Status.Attachment[index].Url;
             await contentDialog.ShowAsync();
+            e.Handled = true;
         }
 
         private async void ReplyIcon_Tapped(object sender, TappedRoutedEventArgs e)
@@ -123,6 +128,7 @@ namespace Mastodon.UWP.Controls
             var contentDialog = new SendStatusContentDialog();
             contentDialog.DataContext = this.Status;
             await contentDialog.ShowAsync();
+            e.Handled = true;
         }
 
         private async void ReblogedIcon_Tapped(object sender, TappedRoutedEventArgs e)
@@ -144,8 +150,7 @@ namespace Mastodon.UWP.Controls
                 Status.Rebloged = true;
                 Bindings.Update();
             }
-
-
+            e.Handled = true;
         }
 
         private async void FavoritedIcon_Tapped(object sender, TappedRoutedEventArgs e)
@@ -167,6 +172,7 @@ namespace Mastodon.UWP.Controls
                 Status.Favorited = true;
                 Bindings.Update();
             }
+            e.Handled = true;
         }
 
         public delegate void FaceImageTouchedDelegate(AccountModel account);
@@ -195,6 +201,11 @@ namespace Mastodon.UWP.Controls
         {
             NavigateToStatusDetail?.Invoke(this.DataContext as StatusModel);
             e.Handled = true;
+        }
+
+        private void ImageBrush_ImageFailed(object sender, ExceptionRoutedEventArgs e)
+        {
+            (sender as ImageBrush).ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Images/missing.png"));
         }
     }
 }

@@ -20,7 +20,7 @@
             </StackPanel.Background>
             <Rectangle Width="100" Height="100" RadiusX="10" RadiusY="10" Margin="0 40 0 0" HorizontalAlignment="Center">
                 <Rectangle.Fill>
-                    <ImageBrush Stretch="UniformToFill" ImageSource="{x:Bind Account.FaceImage}" />
+                    <ImageBrush Stretch="UniformToFill" ImageSource="{x:Bind Account.FaceImage}" ImageFailed="ImageBrush_ImageFailed" />
                 </Rectangle.Fill>
             </Rectangle>
             <TextBlock Margin="0 10 0 0" Text="{x:Bind Account.Username}" HorizontalAlignment="Center" FontWeight="Bold" FontSize="22" />

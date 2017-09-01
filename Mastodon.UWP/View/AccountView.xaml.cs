@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
@@ -110,6 +111,11 @@ namespace Mastodon.UWP.View
             {
                 await (ContainerFrame.Content as TinelineUserControl).UpdateTimeline();
             }
+        }
+
+        private void ImageBrush_ImageFailed(object sender, ExceptionRoutedEventArgs e)
+        {
+            (sender as ImageBrush).ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Images/missing.png"));
         }
     }
 }

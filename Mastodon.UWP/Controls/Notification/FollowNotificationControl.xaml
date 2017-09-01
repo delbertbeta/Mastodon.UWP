@@ -1,0 +1,34 @@
+﻿<UserControl
+    x:Class="Mastodon.UWP.Controls.Notification.FollowNotificationControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Mastodon.UWP.Controls.Notification"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uwp="using:FontAwesome.UWP"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <StackPanel Name="BaseStackPanel" Tapped="BaseStackPanel_Tapped">
+        <StackPanel Name="TypePanel" Margin="45 10 0 0" Orientation="Horizontal">
+            <uwp:FontAwesome Name="Icon" VerticalAlignment="Center" Icon="UserPlus" Foreground="#2b90d9" FontSize="14"/>
+            <TextBlock Margin="12 0 0 0" Foreground="#9baec8"  VerticalAlignment="Center">
+                <Run Text="{x:Bind Notification.Account.Username}" /><Run x:Name="TypeExplain" Text=" followed you"/>
+            </TextBlock>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Padding="0 0 0 10">
+            <Rectangle Grid.Row="1" Name="RoundedFace" Margin="10 10 5 0" Width="45" Height="45" RadiusX="4" RadiusY="4" VerticalAlignment="Top">
+                <Rectangle.Fill>
+                    <ImageBrush Stretch="UniformToFill" ImageSource="{x:Bind Notification.Account.AvatarStatic}" ImageFailed="ImageBrush_ImageFailed"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <StackPanel Margin="10 8 0 0" Orientation="Vertical">
+                <TextBlock Text="{x:Bind Notification.Account.Username}" FontWeight="Bold" />
+                <TextBlock Margin="0 5 0 0" Foreground="#9baec8">
+                    <Run Text="@" /><Run Text="{x:Bind Notification.Account.Acct}" />
+                </TextBlock>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

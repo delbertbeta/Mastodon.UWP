@@ -27,7 +27,7 @@ namespace Mastodon.UWP.Controls
             this.InitializeComponent();
         }
 
-        public ObservableCollection<NotificationModel> Notifications;
+        public ObservableCollection<NotificationModel> Notifications = new ObservableCollection<NotificationModel>();
 
         private string _nextUrl;
 

@@ -11,40 +11,11 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <VisualStateManager.VisualStateGroups>
-        <VisualStateGroup x:Name="TipType">
-            <VisualState x:Name="Metioned">
-                <VisualState.Setters>
-                    <Setter Target="TypeExplain.Text" Value=" metioned you" />
-                    <Setter Target="Icon.Icon" Value="at" />
-                    <Setter Target="Icon.Foreground" Value="#2b90d9" />
-                    <Setter Target="TypePanel.Visibility" Value="Visible" />
-                </VisualState.Setters>
-            </VisualState>
-            <VisualState x:Name="Favourited">
-                <VisualState.Setters>
-                    <Setter Target="TypeExplain.Text" Value=" favourited your status" />
-                    <Setter Target="Icon.Icon" Value="Star" />
-                    <Setter Target="Icon.Foreground" Value="#ca8f04" />
-                    <Setter Target="TypePanel.Visibility" Value="Visible" />
-                </VisualState.Setters>
-            </VisualState>
-            <VisualState x:Name="Rebloged">
-                <VisualState.Setters>
-                    <Setter Target="TypeExplain.Text" Value=" boosted your status" />
-                    <Setter Target="Icon.Icon" Value="Retweet" />
-                    <Setter Target="Icon.Foreground" Value="#2b90d9" />
-                    <Setter Target="TypePanel.Visibility" Value="Visible" />
-                </VisualState.Setters>
-            </VisualState>
-        </VisualStateGroup>
-    </VisualStateManager.VisualStateGroups>
-
     <StackPanel Name="BaseStackPanel">
-        <StackPanel Name="TypePanel" Margin="45 10 0 0" Orientation="Horizontal" Visibility="Collapsed">
+        <StackPanel Name="TypePanel" Margin="45 10 0 0" Orientation="Horizontal" Visibility="Visible">
             <uwp:FontAwesome Name="Icon" VerticalAlignment="Center" FontSize="14"/>
             <TextBlock Margin="12 0 0 0" Foreground="#9baec8"  VerticalAlignment="Center">
-                <Run Text="{x:Bind Notification.Account.Username}" /><Run Name="TypeExplain"/>
+                <Run Text="{x:Bind Notification.Account.Username}" /><Run x:Name="TypeExplain"/>
             </TextBlock>
         </StackPanel>
         <controls:StatusControl DataContext="{x:Bind Notification.Status}" HorizontalAlignment="Stretch" FaceImageTouched="StatusControl_FaceImageTouched" NavigateToStatusDetail="StatusControl_NavigateToStatusDetail" />

@@ -85,6 +85,13 @@ namespace Mastodon.UWP.Controls
                 FreshButton.Visibility = Visibility.Collapsed;
                 source = TimelineType.Source;
             }
+            else if (TimelineType.TimelineType == View.TimelineType.Favorites)
+            {
+                var result = await API.Apis.Favorites.GetFavorites(account.Instance.Uri, account.Token.AccessToken);
+                source = result.Target;
+                _nextUrl = result.NextUrl;
+                _prevUrl = result.PrevUrl;
+            }
             else
             {
                 source = new List<StatusModel>();

@@ -45,5 +45,9 @@ namespace Mastodon.API.Services
         public const string Context = prefix + "/statuses/{0}/context";
 
         public const string Notifications = prefix + "/notifications";
+
+        public const string Favorites = prefix + "/favourites";
+
+        public const string Search = prefix + "/search";
     }
 }

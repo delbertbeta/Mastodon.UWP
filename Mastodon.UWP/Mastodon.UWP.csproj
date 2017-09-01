@@ -101,6 +101,9 @@
     <Compile Include="Controls\Notification\BaseControl.xaml.cs">
       <DependentUpon>BaseControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Notification\FollowNotificationControl.xaml.cs">
+      <DependentUpon>FollowNotificationControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Notification\StatusNotificationControl.xaml.cs">
       <DependentUpon>StatusNotificationControl.xaml</DependentUpon>
     </Compile>
@@ -133,8 +136,17 @@
     <Compile Include="Controls\TinelineUserControl.xaml.cs">
       <DependentUpon>TinelineUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\AccountView.xaml.cs">
       <DependentUpon>AccountView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FavoritedView.xaml.cs">
+      <DependentUpon>FavoritedView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SearchView.xaml.cs">
+      <DependentUpon>SearchView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\StandByView.xaml.cs">
       <DependentUpon>StandByView.xaml</DependentUpon>
@@ -145,7 +157,7 @@
     <Compile Include="View\MasterView.xaml.cs">
       <DependentUpon>MasterView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\TimelineTypeViewModel.cs" />
+    <Compile Include="ViewModel\TimelineTypeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -159,6 +171,7 @@
     <Content Include="Assets\Images\ForwardIcon.svg" />
     <Content Include="Assets\Images\LogoFull.png" />
     <Content Include="Assets\Images\LogoFull.svg" />
+    <Content Include="Assets\Images\missing.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -178,6 +191,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Notification\BaseControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Notification\FollowNotificationControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -214,7 +231,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\AboutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\AccountView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FavoritedView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SearchView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

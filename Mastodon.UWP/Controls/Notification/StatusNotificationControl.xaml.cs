@@ -31,22 +31,59 @@ namespace Mastodon.UWP.Controls.Notification
         public StatusNotificationControl()
         {
             this.InitializeComponent();
-            if (Notification.Type == "mention")
-                VisualStateManager.GoToState(this, "Metioned", false);
-            if (Notification.Type == "reblog")
-                VisualStateManager.GoToState(this, "Rebloged", false);
-            if (Notification.Type == "favourite")
-                VisualStateManager.GoToState(this, "Favourited", false);
+            this.DataContextChanged += StatusNotificationControl_DataContextChanged;
         }
+
+        private void StatusNotificationControl_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
+        {
+            if (DataContext != null)
+            {
+                if (Notification.Type == "mention")
+                    ChangeToMetionState();
+                if (Notification.Type == "reblog")
+                    ChangeToReblogState();
+                if (Notification.Type == "favourite")
+                    ChangeToFavoritedState();
+            }
+
+        }
+
+        private void ChangeToMetionState()
+        {
+            TypeExplain.Text = " metioned you";
+            Icon.Icon = FontAwesome.UWP.FontAwesomeIcon.At;
+            Icon.Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 43, 145, 217));
+        }
+
+        private void ChangeToReblogState()
+        {
+            TypeExplain.Text = " boosted your status";
+            Icon.Icon = FontAwesome.UWP.FontAwesomeIcon.Retweet;
+            Icon.Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 43, 145, 217));
+        }
+
+
+        private void ChangeToFavoritedState()
+        {
+            TypeExplain.Text = " favourited your status";
+            Icon.Icon = FontAwesome.UWP.FontAwesomeIcon.Star;
+            Icon.Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 202, 143, 4));
+        }
+
+        public delegate void FaceImageTouchedDelegate(AccountModel account);
+        public event FaceImageTouchedDelegate FaceImageTouched;
 
         private void StatusControl_FaceImageTouched(AccountModel account)
         {
-            
+            this.FaceImageTouched?.Invoke(account);
         }
+
+        public delegate void NavigateToStatusDetailDelegate(StatusModel status);
+        public event NavigateToStatusDetailDelegate NavigateToStatusDetail;
 
         private void StatusControl_NavigateToStatusDetail(StatusModel status)
         {
-
+            this.NavigateToStatusDetail?.Invoke(status);
         }
     }
 }

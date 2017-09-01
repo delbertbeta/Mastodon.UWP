@@ -57,11 +57,11 @@ namespace Mastodon.API.Models
         public bool Pinned { get; set; }
         [JsonProperty("reblog", NullValueHandling = NullValueHandling.Ignore)]
         public StatusModel Reblog { get; set; }
-        [JsonProperty("favourited, NullValueHandling = NullValueHandling.Ignore")]
+        [JsonProperty("favourited", NullValueHandling = NullValueHandling.Ignore)]
         public bool Favourited { get; set; }
         [JsonProperty("reblogged", NullValueHandling = NullValueHandling.Ignore)]
         public bool Reblogged { get; set; }
-        [JsonProperty("muted, NullValueHandling = NullValueHandling.Ignore")]
+        [JsonProperty("muted", NullValueHandling = NullValueHandling.Ignore)]
         public bool Muted { get; set; }
     }
 }

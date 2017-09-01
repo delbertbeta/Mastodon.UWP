@@ -19,7 +19,7 @@
                 <Frame Name="HomeFrame" />
             </PivotItem>
             <PivotItem>
-                <TextBlock Text="Developing..." />
+                <Frame Name="NotificationFrame" />
             </PivotItem>
             <PivotItem>
                 <TextBlock Text="Developing..." />

@@ -1,0 +1,17 @@
+﻿<Page
+    x:Class="Mastodon.UWP.View.AboutView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Mastodon.UWP.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <RelativePanel Background="Transparent">
+        <StackPanel Orientation="Vertical" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
+            <TextBlock FontWeight="Bold" FontSize="36"><Run>Mastodon</Run><Run Foreground="DeepSkyBlue" Text=" UWP" /></TextBlock>
+            <TextBlock FontWeight="Light" FontSize="22"><Hyperlink NavigateUri="https://delbertbeta.cc">@delbertbeta</Hyperlink></TextBlock>
+        </StackPanel>
+        <Image Source="ms-appx:///Assets/Images/Elephant.png" Width="350" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignRightWithPanel="True" />
+    </RelativePanel>
+</Page>

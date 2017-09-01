@@ -59,7 +59,7 @@
                         <TextBlock Text="{x:Bind profit.Username}" RelativePanel.RightOf="RoundedFace" RelativePanel.AlignTopWith="RoundedFace" Margin="0 10 0 0" FontWeight="Bold" FontSize="22" />
                         <TextBlock Text="{x:Bind profit.Instance}" RelativePanel.RightOf="RoundedFace" RelativePanel.AlignBottomWith="RoundedFace" Margin="0 0 0 10" Foreground="#D8E0E7" />
                     </RelativePanel>
-                    <ListBox RelativePanel.Below="ProfileRelativePanel" Background="Transparent" SelectedIndex="0">
+                    <ListBox Name="TopListBox" RelativePanel.Below="ProfileRelativePanel" Background="Transparent" SelectedIndex="0" SelectionChanged="TopListBox_SelectionChanged">
                         <ListBoxItem>
                             <StackPanel Orientation="Horizontal">
                                 <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE80F;" VerticalAlignment="Center" />
@@ -72,8 +72,14 @@
                                 <TextBlock Text="Favorited" VerticalAlignment="Center" Margin="10 0 0 0"/>
                             </StackPanel>
                         </ListBoxItem>
+                        <ListBoxItem>
+                            <StackPanel Orientation="Horizontal">
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE1A3;" VerticalAlignment="Center" />
+                                <TextBlock Text="Search" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                            </StackPanel>
+                        </ListBoxItem>
                     </ListBox>
-                    <ListBox RelativePanel.AlignBottomWithPanel="True" Background="Transparent">
+                    <ListBox Name="BottomListBox" RelativePanel.AlignBottomWithPanel="True" Background="Transparent" SelectionChanged="BottomListBox_SelectionChanged">
                         <ListBoxItem>
                             <StackPanel Orientation="Horizontal">
                                 <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE713;" VerticalAlignment="Center" />

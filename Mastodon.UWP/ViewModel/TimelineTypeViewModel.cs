@@ -12,7 +12,8 @@ namespace Mastodon.UWP.View
         Home,
         Id,
         Tag,
-        DataContext
+        DataContext,
+        Favorites
     }
 
     public class TimelineTypeViewModel

@@ -96,7 +96,35 @@ namespace Mastodon.UWP.Pages
         {
             var contentDialog = new Controls.SendStatusContentDialog();
             await contentDialog.ShowAsync();
-            
+        }
+
+        private void TopListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var listBox = sender as ListBox;
+            switch (listBox.SelectedIndex)
+            {
+                case 1:
+                    DetailFrame.Navigate(typeof(View.FavoritedView));
+                    break;
+                case 2:
+                    DetailFrame.Navigate(typeof(View.SearchView));
+                    break;
+                default:
+                    break;
+            }
+            MenuSplitView.IsPaneOpen = false;
+            (sender as ListBox).SelectedIndex = 0;
+        }
+
+        private void BottomListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var listBox = sender as ListBox;
+            if (listBox.SelectedIndex == 1)
+            {
+                DetailFrame.Navigate(typeof(View.AboutView));
+            }
+            MenuSplitView.IsPaneOpen = false;
+            listBox.SelectedItem = null;
         }
     }
 }

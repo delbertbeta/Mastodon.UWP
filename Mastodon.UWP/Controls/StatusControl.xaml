@@ -11,7 +11,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid Height="auto" Tapped="Grid_Tapped">
+    <Grid Height="auto">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
@@ -26,7 +26,7 @@
         </StackPanel>
         <Rectangle Grid.Row="1" Name="RoundedFace" Margin="10 10 5 0" Width="45" Height="45" RadiusX="4" RadiusY="4" VerticalAlignment="Top" Tapped="RoundedFace_Tapped">
             <Rectangle.Fill>
-                <ImageBrush Stretch="UniformToFill" ImageSource="{x:Bind Status.FaceImage}"/>
+                <ImageBrush Stretch="UniformToFill" ImageSource="{x:Bind Status.FaceImage}" ImageFailed="ImageBrush_ImageFailed"/>
             </Rectangle.Fill>
         </Rectangle>
         <StackPanel Grid.Row="1" Padding="10" Grid.Column="1" HorizontalAlignment="Stretch">
@@ -35,7 +35,7 @@
                 <TextBlock RelativePanel.RightOf="UsernameTextBlock" Margin="5 0 0 0" Foreground="#606984" Text="{x:Bind Status.Acct}" />
                 <TextBlock Text="{x:Bind Status.CreateAt}" RelativePanel.AlignRightWithPanel="True" Foreground="#606984" />
             </RelativePanel>
-            <TextBlock Margin="0 5 0 0" Name="StatueContentTextBlock" TextWrapping="WrapWholeWords" Text="{x:Bind Status.Content}" />
+            <TextBlock Margin="0 5 0 0" Name="StatueContentTextBlock" TextWrapping="WrapWholeWords" Text="{x:Bind Status.Content}" Tapped="Grid_Tapped" />
             <GridView Name="ImagesGridView" Margin="0 10 0 10" ItemsSource="{x:Bind Status.Attachment}" SelectionMode="None">
                 <GridView.ItemTemplate>
                     <DataTemplate x:DataType="api:AttachmentModel">

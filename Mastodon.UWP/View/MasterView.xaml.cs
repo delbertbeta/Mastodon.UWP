@@ -1,4 +1,5 @@
 ﻿using Mastodon.API.Models;
+using Mastodon.UWP.Controls;
 using Mastodon.UWP.Pages;
 using System;
 using System.Collections.Generic;
@@ -34,8 +35,22 @@ namespace Mastodon.UWP.View
         {
             switch (ContentPivot.SelectedIndex)
             {
-                case 0:
-                    
+                case 1:
+                    if (NotificationFrame.Content == null)
+                    {
+                        var notificationList = new NotificationListControl();
+                        notificationList.NavigatingToAccount += (account) =>
+                        {
+                            NavigatingToAccount?.Invoke(account);
+                        };
+                        notificationList.NavigateToStatusDetail += (status) =>
+                        {
+                            ((Window.Current.Content as Frame).Content as TimeLinePage).DetailViewNavigateTo(typeof(StatusDetailView), status);
+                        };
+                        NotificationFrame.Content = notificationList;
+
+                    }
+                    break;
                 default:
                     break;
             }
